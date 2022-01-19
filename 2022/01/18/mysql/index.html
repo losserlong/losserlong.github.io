@@ -219,13 +219,13 @@
       
         <h1 id="事务隔离级别-图文详解"><a href="#事务隔离级别-图文详解" class="headerlink" title="事务隔离级别(图文详解)"></a>事务隔离级别(图文详解)</h1><h2 id="什么是事务"><a href="#什么是事务" class="headerlink" title="什么是事务?"></a>什么是事务?</h2><p>事务是逻辑上的一组操作，要么都执行，要么都不执行。</p>
 <p>事务最经典也经常被拿出来说例子就是转账了。假如小明要给小红转账1000元，这个转账会涉及到两个关键操作就是：将小明的余额减少1000元，将小红的余额增加1000元。万一在这两个操作之间突然出现错误比如银行系统崩溃，导致小明余额减少而小红的余额没有增加，这样就不对了。事务就是保证这两个关键操作要么都成功，要么都要失败。</p>
-<h3 id="常用的事务控制语法"><a href="#常用的事务控制语法" class="headerlink" title="常用的事务控制语法"></a>常用的事务控制语法</h3><pre class=" language-mysq"><code class="language-mysq">- 事务开始
+<h3 id="常用的事务控制语法"><a href="#常用的事务控制语法" class="headerlink" title="常用的事务控制语法"></a>常用的事务控制语法</h3><pre class="line-numbers language-mysq"><code class="language-mysq">- 事务开始
 begin;
 - 事务提交，提交后就会写入物理磁盘中去
 commit;
 - 事务回滚，事务提交后，无法回滚
 rollback;
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="事务的四大特性（ACID）"><a href="#事务的四大特性（ACID）" class="headerlink" title="事务的四大特性（ACID）"></a>事务的四大特性（ACID）</h2><p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220118173945.png" alt="image-20211231191231001"></p>
 <ol>
 <li><strong><font color='red'>原子性（atomicity）</font>：</strong> <strong>事务是最小的执行单位，不允许分割。</strong>事务的原子性确保动作要么全部完成，要么完全不起作用；</li>
@@ -233,54 +233,54 @@ rollback;
 <li><strong><font color='red'>隔离性（isolation）</font>：</strong> 并发访问数据库时，一个用户的事务不被其他事务所干扰，<strong>各并发事务之间数据库是独立的；</strong></li>
 <li><strong><font color='red'>持久性（durability）</font>：</strong> <strong>一个事务被提交之后。它对数据库中数据的改变是持久的</strong>，即使数据库发生故障也不应该对其有任何影响。</li>
 </ol>
-<h2 id="关闭mysql的事务自动提交"><a href="#关闭mysql的事务自动提交" class="headerlink" title="关闭mysql的事务自动提交"></a>关闭mysql的事务自动提交</h2><pre class=" language-mysql"><code class="language-mysql">SET autocommit = 0|1|ON|OFF;
-</code></pre>
+<h2 id="关闭mysql的事务自动提交"><a href="#关闭mysql的事务自动提交" class="headerlink" title="关闭mysql的事务自动提交"></a>关闭mysql的事务自动提交</h2><pre class="line-numbers language-mysql"><code class="language-mysql">SET autocommit = 0|1|ON|OFF;
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>对取值的说明：</p>
 <p>值为 0 和值为 OFF：关闭事务自动提交。如果关闭自动提交，用户将会一直处于某个事务中，只有提交或回滚后才会结束当前事务，重新开始一个新事务。<br>值为 1 和值为 ON：开启事务自动提交。如果开启自动提交，则每执行一条 SQL 语句，事务都会提交一次。</p>
 <h2 id="数据库的隔离级别"><a href="#数据库的隔离级别" class="headerlink" title="数据库的隔离级别"></a>数据库的隔离级别</h2><h3 id="事务隔离级别的定义"><a href="#事务隔离级别的定义" class="headerlink" title="事务隔离级别的定义"></a>事务隔离级别的定义</h3><p>事务指定一个隔离级别，该隔离级别<strong>定义一个事务必须与由其他事务进行的资源或数据更改相隔离的程度。</strong>隔离级别从允许的并发副作用（例如，脏读或幻读的角度进行描述。</p>
-<pre class=" language-mysql"><code class="language-mysql">- 查看隔离级别,8.0版本之前的，用SELECT @@tx_isolation
+<pre class="line-numbers language-mysql"><code class="language-mysql">- 查看隔离级别,8.0版本之前的，用SELECT @@tx_isolation
 select @@transaction_isolation;
 
 - 修改隔离级别
 set session transaction isolation level  READ UNCOMMITTED;
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="隔离级别的分类"><a href="#隔离级别的分类" class="headerlink" title="隔离级别的分类"></a>隔离级别的分类</h3><p><strong>读未提交(READ-UNCOMMITTED)：</strong>A事务操作后没有执行commit提交命令，但是B事务也能察觉到A操作的数据变化，此时B重新查询，则能查询出A操作后的最新数据，但是当A事务rollback回滚后，A操作的数据其实没有变化，这时候B处的数据就变成了脏数据(容易导致脏读情形产生)</p>
 <p>设置隔离级别为读未提交</p>
-<pre class=" language-mysql"><code class="language-mysql">- 设置隔离级别
+<pre class="line-numbers language-mysql"><code class="language-mysql">- 设置隔离级别
 set session transaction isolation level    read uncommitted;
  - 查看隔离级别
 select  @@transaction_isolation;
  
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>读已提交(不可重复读 read committed)oracle默认的隔离级别</strong>:读已提交，表示只有执行了commit命令后，才能得知数据的变化，A修改了数据，没有提交，B不会察觉到数据的变化。这样虽然会避免脏读，但是会出现，当A读取某一条数据时候，B正在对该数据进行操作(修改)，但是B操作并没有结束，因此此时数据并没有发生变化，但是A在B事务提交前已经执行完了，那就会出现数据不一致现象，这种问题叫做不可重复读。</p>
 <p>设置隔离级别为读已提交</p>
-<pre class=" language-mysql"><code class="language-mysql"> - 设置隔离级别
+<pre class="line-numbers language-mysql"><code class="language-mysql"> - 设置隔离级别
 set session transaction isolation level    read committed;
   - 查看隔离级别
 select  @@transaction_isolation;
 
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>可重复读(repeatable read mysql 的默认隔离级别)</strong></p>
 <p>可重复读与不可重复读很容易搞混淆，<strong>可重复读侧重于有没有进行行增加减少，也就是新增和删除，而不可重复读侧重于修改操作，不影响行数。</strong>可重复读是采用锁行形式，因为是锁行，所以无法保证对行数的操作限制隔离，只能保证当前锁住的行隔离影响。</p>
 <p><strong>串行化</strong></p>
 <p>最可靠的事务隔离级别。“写”会加“写锁”，“读”会加“读锁”。当出现读写锁冲突的时候，后访问的事务必须等前一个事务执行完成，才能继续执行。事务 100% 隔离，可避免脏读、不可重复读、幻读的发生。因为串行化是锁表，因此虽然隔离级别最高，但是消耗资源最大</p>
 <p>mysql数据库默认的事务隔离级别是<strong>可重复读（REPEATABLE-READ ）</strong></p>
-<pre class=" language-bash"><code class="language-bash">mysql<span class="token operator">></span> <span class="token keyword">select</span> @@transaction_isolation<span class="token punctuation">;</span>
+<pre class="line-numbers language-bash"><code class="language-bash">mysql<span class="token operator">></span> <span class="token keyword">select</span> @@transaction_isolation<span class="token punctuation">;</span>
 +-------------------------+
 <span class="token operator">|</span> @@transaction_isolation <span class="token operator">|</span>
 +-------------------------+
 <span class="token operator">|</span> REPEATABLE-READ         <span class="token operator">|</span>
 +-------------------------+
 1 row <span class="token keyword">in</span> <span class="token keyword">set</span> <span class="token punctuation">(</span>0.00 sec<span class="token punctuation">)</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>修改数据库的事务隔离级别为<strong>不可重复读 READ-UNCOMMITTED</strong> </p>
-<pre class=" language-bash"><code class="language-bash">mysql<span class="token operator">></span> <span class="token keyword">select</span> @@transaction_isolation<span class="token punctuation">;</span>
+<pre class="line-numbers language-bash"><code class="language-bash">mysql<span class="token operator">></span> <span class="token keyword">select</span> @@transaction_isolation<span class="token punctuation">;</span>
 +-------------------------+
 <span class="token operator">|</span> @@transaction_isolation <span class="token operator">|</span>
 +-------------------------+
 <span class="token operator">|</span> READ-UNCOMMITTED        <span class="token operator">|</span>
 +-------------------------+
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这下面是MySQL8的事务隔离级别，MySQL5的话可重读读，还是会出现幻读</p>
 <table>
 <thead>
