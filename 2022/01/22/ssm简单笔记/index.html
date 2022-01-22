@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/author.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/author.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"losserlong.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="SSM Javaweb的三大组件：Servlet，Filter，Listener；  复习JavaWeb  filter流程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ssm简单笔记">
+<meta property="og:url" content="https://losserlong.github.io/2022/01/22/ssm%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Xiang&#39;s Blog">
+<meta property="og:description" content="SSM Javaweb的三大组件：Servlet，Filter，Listener；  复习JavaWeb  filter流程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210806085801.png">
+<meta property="og:image" content="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210806185957.png">
+<meta property="og:image" content="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210807101457.png">
+<meta property="og:image" content="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210807101900.png">
+<meta property="og:image" content="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210810195822.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220122221334.png">
+<meta property="og:image" content="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210816101109.png">
+<meta property="og:image" content="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210816101159.png">
+<meta property="og:image" content="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210816101233.png">
+<meta property="og:image" content="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210818103226.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220122221350.png">
+<meta property="og:image" content="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210828203148.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220122221357.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220122221305.png">
+<meta property="article:published_time" content="2022-01-22T14:19:12.000Z">
+<meta property="article:modified_time" content="2022-01-22T14:20:55.858Z">
+<meta property="article:author" content="Xiang">
+<meta property="article:tag" content="ssm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210806085801.png">
+
+<link rel="canonical" href="https://losserlong.github.io/2022/01/22/ssm%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ssm简单笔记 | Xiang's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  
+<script type="text/javascript" src="/js/love.js"></script>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+<a target="_blank" rel="noopener" href="https://github.com/losserlong" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Xiang's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">欲买桂花重载酒，终不似，少年游</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://losserlong.github.io/2022/01/22/ssm%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="Xiang">
+      <meta itemprop="description" content="今日长缨在手，何时缚住苍龙？">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ssm简单笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-22 22:19:12 / 修改时间：22:20:55" itemprop="dateCreated datePublished" datetime="2022-01-22T22:19:12+08:00">2022-01-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ssm/" itemprop="url" rel="index"><span itemprop="name">ssm</span></a>
+                </span>
+			  <span>℃</span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="ssm"><a class="markdownIt-Anchor" href="#ssm"></a> SSM</h1>
+<p>Javaweb的三大组件：Servlet，Filter，Listener；</p>
+<h2 id="复习javaweb"><a class="markdownIt-Anchor" href="#复习javaweb"></a> 复习JavaWeb</h2>
+<h3 id="filter流程"><a class="markdownIt-Anchor" href="#filter流程"></a> filter流程</h3>
+<p><img src="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210806085801.png" alt="image-20210806085748742" /></p>
+<span id="more"></span>
+<h3 id="listener"><a class="markdownIt-Anchor" href="#listener"></a> Listener</h3>
+<p>八个：ServletRequest（2）、HttpSession（2）、ServletContext（2）</p>
+<p>2：生命周期监听器，属性变化监听器</p>
+<p>4（HttpSession）：除了上面那两个外，还有额外的两个（活化钝化监听器、绑定解绑监听器）</p>
+<p>掌握的监听器：</p>
+<p>ServlertContextListener（生命周期）：监听ServletContext的创建和销毁（监听服务器的启动和停止）；服务器启动创建一个ServletContext对象，服务器停止，销毁创建的ServletContext对象；</p>
+<p><font color='red'>ServletContext:</font></p>
+<p>​				1、一个web项目对应一个ServletContext，它代表web项目的信息</p>
+<p>​				2、还可以作为最大的域对象在整个项目的运行期间共享数据</p>
+<p><font color='red'>监听器的使用方法：</font></p>
+<p>​				1.先实现对应的监听器接口</p>
+<p>​				2.去web.xml进行配置；注意：有两个Listener是JavaBean需要实现的接口，（HttpSessionActivitionListener，HttpSessionBindingListener）</p>
+<h3 id="ajax和json"><a class="markdownIt-Anchor" href="#ajax和json"></a> AJAX和JSON</h3>
+<p>JSON:(js对象表法)是一种轻量级的数据交换格式（与xml相比较）</p>
+<p>一个复杂的js对象</p>
+<pre class="highlight"><code class="js">    <span class="hljs-keyword">var</span> student = &#123;
+        <span class="hljs-attr">lastName</span>: <span class="hljs-string">"张山"</span>,
+        <span class="hljs-attr">age</span>: <span class="hljs-number">18</span>,
+        <span class="hljs-attr">car</span>: &#123;<span class="hljs-attr">pp</span>: <span class="hljs-string">"baoma"</span>, <span class="hljs-attr">price</span>: <span class="hljs-string">"15555555555"</span>&#125;,
+        <span class="hljs-attr">infos</span>: [&#123;<span class="hljs-attr">bookName</span>: <span class="hljs-string">"西游记"</span>, <span class="hljs-attr">price</span>: <span class="hljs-number">19</span>&#125;, <span class="hljs-number">18</span>, <span class="hljs-literal">true</span>]
+    &#125;;
+</code></pre>
+<p>如果服务器返回给浏览器的样子是js对象这个样子的，浏览器使用js解析就很方便；</p>
+<p>JSON</p>
+<pre class="highlight"><code class="js"> <span class="hljs-comment">//json要求和js对象是一样的，只不过key必须是字符串</span>
+   <span class="hljs-comment">//js对象在声明的时候是否加双引号是可以选择的</span>
+    <span class="hljs-keyword">var</span> student2 = &#123;
+        <span class="hljs-string">"lastName"</span>: <span class="hljs-string">"张山"</span>,
+        <span class="hljs-string">"age"</span>: <span class="hljs-number">18</span>
+       
+    &#125;;
+    <span class="hljs-comment">//JSON(js的内置对象)这个是js提供的将js对象转换成json(应该是js对象的字符串表示法)字符串</span>
+   <span class="hljs-keyword">var</span> strjson= <span class="hljs-built_in">JSON</span>.stringify(student2);
+   alert(<span class="hljs-keyword">typeof</span> strjson);
+    alert(strjson);
+
+</code></pre>
+<p>两个重要的API：</p>
+<p>​		<font color='red'>	1、将js对象转换为JSON</font></p>
+<pre class="highlight"><code class="js"><span class="hljs-built_in">JSON</span>.stringify(js对象)
+</code></pre>
+<p>​			2、将JSON对象转换成js’对象</p>
+<pre class="highlight"><code class="">JSON.parse(JSON对象);
+</code></pre>
+<h3 id="ajax"><a class="markdownIt-Anchor" href="#ajax"></a> AJAX</h3>
+<p>AJAX：synchronous Javascript And XML（异步JavaScript和XML）<br />
+AJAX：是一种无刷新页面与服务器的交互技术。（保持页面不刷新就能得到服务器的数据）</p>
+<p><font color='red'>原来的交互：</font></p>
+<p>1、发送请求</p>
+<p>2、服务器收到请求，调用队对应的servlet进行处理；servlet处理完成之后会有响应信息生成；</p>
+<p>3、浏览器收到了服务器响应的数据，把之前的页面清空，展示新的数据；（效果就是页面刷新）</p>
+<p>现在的交互：（XmlHttpRequest对象）</p>
+<p>1、XmlHttpRequest对象帮我们发送请求</p>
+<p>2、服务器收到请求后，调用对应的servlet进行处理；servlet处理完成会有响应信息生成；</p>
+<p>3、XmlHttpRequest对象收数据（浏览器就感受不到这个数据了；xml对象收到这个数据）</p>
+<p><img src="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210806185957.png" alt="image-20210806185956945" /></p>
+<p><font color='red'>将fJava中的Object对象转换成Json对象的包</font></p>
+<p>代码演示：</p>
+<pre class="highlight"><code class="JAVA"> 	 Map&lt;String, Object&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+        map.put(<span class="hljs-string">"lastName"</span>,<span class="hljs-string">"zs"</span>);
+        map.put(<span class="hljs-string">"age"</span>,<span class="hljs-number">18</span>);
+        <span class="hljs-comment">//1、转成json</span>
+        Gson gson = <span class="hljs-keyword">new</span> Gson();
+        String str = gson.toJson(map);
+        response.getWriter().write(str);
+</code></pre>
+<p>引入的依赖：（去maven仓库下载就可以了）</p>
+<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.google.code.gson<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>gson<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.8.6<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+</code></pre>
+<p>改变了我们传统的交互反射光hi就</p>
+<p>1、发请求；</p>
+<p>2、服务器收到请求，处理请求经常要给页面携带数据。request.setAtteribute(“map”,map);转发到页面</p>
+<p>3、浏览器收到页面数据，在页面中使用el表达式获取数据；</p>
+<p>导致页面整个刷新，造成了很大的服务器负担；</p>
+<p>只让服务器返回我们需要的部分数据即可；不用返回整个页面；xhr代替浏览器来接收响应，发送请求；利用dom增删给的方式改变页面的效果；</p>
+<p><font color='red'>异步无刷新页面技术</font></p>
+<p>异步：不会阻塞浏览器</p>
+<p>同步：会阻塞浏览器；因为需要等到服务器处理完整个请求，完成响应后才能做其他事情</p>
+<p><font color='red'>什么是ajax：</font></p>
+<p>​				ajax就是xhr对象向服务器发送请求，并受到响应数据，利用dom增删改的方式改变页面效果</p>
+<p>Ajax中get请求和post请求的用法是一样的，只是一个发送的是get请求一个发送的是post请求，区别是get请求时将数据封装在请求的？后面，而post请求是将数据封装在了请求体中</p>
+<p>post请求封装的数据</p>
+<p><img src="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210807101457.png" alt="image-20210807101446208" /></p>
+<p>get请求封装数据</p>
+<p><img src="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210807101900.png" alt="image-20210807101855937" /></p>
+<h2 id="ioc和di"><a class="markdownIt-Anchor" href="#ioc和di"></a> IOC和DI</h2>
+<p>IOC：（Inversion（反转） Of Control）控制反转；</p>
+<p>​		控制：资源获取的方式；</p>
+<p>​					<font color='red'>主动式</font>：(要什么资源都自己创建即可)</p>
+<pre class="highlight"><code class="java">BookServlet&#123;
+BookService bs= <span class="hljs-keyword">new</span> BookService();
+AirPlane ap=<span class="hljs-keyword">new</span> AirPlane();
+&#125;
+</code></pre>
+<p>​					<font color='red'>被动式:</font>资源的获取不是我们自己创建，而是交给一个容器来创建和设置；</p>
+<pre class="highlight"><code class="java">BookService&#123;
+	BookService bs;
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test01</span><span class="hljs-params">()</span></span>&#123;
+	bs.checkout();
+	&#125;
+&#125;
+</code></pre>
+<p>容器：管理所有的组件（有功能的类）</p>
+<p>假设，BookServlet受容器管理，BookService也受容器管理;容器可以自动的探查出那些组件(类)需要用到另一写组件(类）﹔容器帮我们创建BookService对象，并把BookService对象赋值过去;<br />
+容器：主动的new资源变为被动的接收咨源·</p>
+<p>（容器）婚介所：主动获取变为被动接收；</p>
+<p>DI（Dependency Injection）依赖注入；</p>
+<p>​	容器能知道哪个组件（类）运行的时候，需要另一个类（组件）；容器通过反射的形式，将容器中准备好BookService对象注入（利用反射给属性赋值）到BookServce中</p>
+<hr>
+<p>HelloWorld；（通过各种方式给容器中注册对象（类似于婚庆所的注册会员）），以前是自己new对象现在所有的对象都交给容器创建；<font color='red'>给容器中注册组件</font></p>
+<p>以后编写的流程；</p>
+<p>HelloWorld</p>
+<p>1、导包(4个jar包：spring-context、spring-core、spring-beans、spring-expression)</p>
+<pre class="highlight"><code class="xml">    <span class="hljs-comment">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-context --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-context<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>5.3.9<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-core --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-core<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>5.3.9<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-beans --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-beans<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>5.3.8<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.logging.log4j<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>log4j-core<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.14.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-expression --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-expression<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>5.3.9<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+
+
+</code></pre>
+<p>2、写配置（ioc.xml）</p>
+<pre class="highlight"><code class="xml"><span class="hljs-meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">beans</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://www.springframework.org/schema/beans"</span>
+       <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+       <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span>
+    <span class="hljs-comment">&lt;!--    注册一个person对象，Spring会自动创建一个Person对象--&gt;</span>
+    <span class="hljs-comment">&lt;!--
+    一个bean标签可以注册一个组件（对象、类）
+    id：这个对象的唯一标识
+    class:要写的注册的组件的全类名
+    --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"person"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"com.pzx.spring.bean.Person"</span>&gt;</span>
+        <span class="hljs-comment">&lt;!--  property 标签为对象的属性赋值
+              name是用来指定属性名称，
+              value是用来指定属性值
+              --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"lastName"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"张三"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"age"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"18"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"email"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"zs@guigu.com"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"gender"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"男"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">beans</span>&gt;</span>
+</code></pre>
+<p>3、测试  (<font color='red'>ClassPathXmlApplicationContext当前配置文件在ClassPath下)</font></p>
+<pre class="highlight"><code class="java"><span class="hljs-meta">@Test</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span></span>&#123;
+    <span class="hljs-comment">//ApplicationContext：表示ioc容器</span>
+    <span class="hljs-comment">//当前应用的xml配置文件在内路径下</span>
+    <span class="hljs-comment">//ClassPathXmlApplicationContext当前配置文件在ClassPath下</span>
+    <span class="hljs-comment">//根据Spring的配置文件得到ioc容器对象</span>
+    ApplicationContext ioc = <span class="hljs-keyword">new</span> ClassPathXmlApplicationContext(<span class="hljs-string">"ioc.xml"</span>);
+    Person person = ioc.getBean(<span class="hljs-string">"person"</span>, Person<span class="hljs-class">.<span class="hljs-keyword">class</span>)</span>;
+    System.out.println(person);
+
+&#125;
+
+<span class="hljs-comment">//结果   Person&#123;lastName='张三', age=18, gender='男', email='zs@guigu.com'&#125;</span>
+</code></pre>
+<h3 id="helloworld的小总结"><a class="markdownIt-Anchor" href="#helloworld的小总结"></a> HelloWorld的小总结</h3>
+<p>有几个小细节：(<font color='red'>对象的创建都是通过反射来实现的</font>)</p>
+<p>1、ApplicationContext（IOC容器的接口）</p>
+<p>2、给容器注册了一个组件；我们也从容器中按照id拿到了这个组件的对象?</p>
+<ul>
+<li>组件的创建工作是容器来替我们完成的<br />
+*      Person对象是什么时候创建好的呢？<br />
+* <font color='red'>容器中对象的创建是在容器创建完成之后就已经创建好了；</font></li>
+</ul>
+<p>3、<font color='red'>同一个组件在ioc容器中是单实例的，容器启动完成就已经创建好了</font></p>
+<p>4、容器中如果没有这个组件，获取组件会报异常</p>
+<pre><code> * org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'person3' available
+</code></pre>
+<p>5、<font color='red'>ioc容器在创建这个组件对象时，(property)会利用setter方法为JavaBean的属性赋值</font></p>
+<p>6、JavaBean的属性名使用什么决定的？<font color='red'>getter/setter方法</font>，属性名是去掉set，后面那串字母首字母小写</p>
+<pre><code> * 注意不要随便该getter/setter，所有的getter/setter都要自动生成
+</code></pre>
+<h3 id="泛型依赖注入的原理"><a class="markdownIt-Anchor" href="#泛型依赖注入的原理"></a> 泛型依赖注入的原理</h3>
+<p><img src="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210810195822.png" alt="image-20210810195813570" /></p>
+<h3 id="将数组转换成集合"><a class="markdownIt-Anchor" href="#将数组转换成集合"></a> 将数组转换成集合</h3>
+<pre class="highlight"><code class="java">Arrays.asList(数组名)
+</code></pre>
+<h2 id="aop"><a class="markdownIt-Anchor" href="#aop"></a> AOP</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220122221334.png" alt="image-20210812165605661" /></p>
+<h3 id="如何将spring中的一个类定义为一个切面类"><a class="markdownIt-Anchor" href="#如何将spring中的一个类定义为一个切面类"></a> 如何将Spring中的一个类定义为一个切面类</h3>
+<p>将Spring中的一个类定义为切面类</p>
+<p>​					在类上加上<font color='red'>@Aspect </font>和<font color='red'> @Component</font>这两个注解<br />
+​					其中@Aspect的作用是将这个类<font color='red'>声明为一个切面类</font><br />
+​					@Component这个注解的作用是表示<font color='red'>将这个类注入到IOC容器中</font></p>
+<h3 id="springaop五大通知注解"><a class="markdownIt-Anchor" href="#springaop五大通知注解"></a> SpringAOP五大通知注解</h3>
+<p>在以下方法上面加上这些注解之后，<font color='red'>还得在注解里面加上execution()</font></p>
+<ul>
+<li>
+<p><font color='red'>@Before</font>：在目标方法执行之前运行                     前置通知</p>
+</li>
+<li>
+<p><font color='red'>@After</font>：在目标方法执行完成之后运行                   后置通知</p>
+</li>
+<li>
+<p><font color='red'> @AfterReturning</font>：在目标方法正常返回后               返回通知      这个注解里面可能还要加上</p>
+<pre class="highlight"><code class="java"> <span class="hljs-meta">@AfterReturning</span>(value = <span class="hljs-string">"hahaMyPoint()"</span> ,returning=<span class="hljs-string">"result"</span>)
+<span class="hljs-meta">@AfterReturning</span> 这个注解里面可能还要加上returning的值用来表明返回的执行结果
+</code></pre>
+</li>
+<li>
+<p><font color='red'>@AfterThrowing</font>：在目标方法抛出异常后执行          异常通知</p>
+<pre class="highlight"><code class="java"><span class="hljs-meta">@AfterThrowing</span>(value = <span class="hljs-string">"hahaMyPoint()"</span>,throwing=<span class="hljs-string">"exception"</span>)
+这个注解也有可能要加上throwing，用来表示返回的异常信息
+</code></pre>
+</li>
+</ul>
+<p><font color='orange'>代码演示</font></p>
+<pre class="highlight"><code class="java">    <span class="hljs-comment">/**
+     * 细节四：我们可以在通知方法运行的时候，拿到目标方法的详细信息学；
+     * 1）只需要为通知方法的参数列表上写一个参数：
+     *              JoinPoint joinPoint:封装了目标方法的详细信息
+     *
+     * 2)、告诉Spring哪个参数是用来接收异常的
+     *
+     *
+     * 3）、Exception exception：指定通知方法可以接收哪些异常（一般都是往大的方面写）
+     *
+     * 有点像ajax请求
+     * ajax.post(url,function(abc)&#123;
+     * alert(abc);
+     * &#125;)
+     *
+     */</span>
+    <span class="hljs-comment">//想在目标方法出现异常后执行</span>
+<span class="hljs-comment">//    @AfterThrowing(value = "execution(public int com.pzx2.impl.MyMathCalculator.*(int ,int ))",throwing="exception")</span>
+    <span class="hljs-meta">@AfterThrowing</span>(value = <span class="hljs-string">"hahaMyPoint()"</span>,throwing=<span class="hljs-string">"exception"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">logException</span><span class="hljs-params">(JoinPoint joinPoint , Exception exception)</span> </span>&#123;
+
+        Signature signature = joinPoint.getSignature();
+        String name = signature.getName();
+        System.out.println(<span class="hljs-string">"[LogUtils-异常]【"</span>+name+<span class="hljs-string">"】方法出现异常了，异常信息是"</span>+exception+ <span class="hljs-string">":已经通知测试小组进行排查"</span>);
+
+    &#125;
+</code></pre>
+<ul>
+<li><font color='red'>@Around:环绕  </font>  (这个功能最强大)                                                       环绕通知</li>
+</ul>
+<p><font color='red'>四个通知方法的执行顺序</font></p>
+<pre class="highlight"><code class="java"> <span class="hljs-keyword">try</span> &#123;
+       <span class="hljs-meta">@Before</span>
+       method.invoke(obj,args);
+       <span class="hljs-meta">@AfterReturning</span>
+            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;
+            <span class="hljs-meta">@AfterThrowing</span>
+        &#125; <span class="hljs-keyword">finally</span> &#123;
+        <span class="hljs-meta">@After</span>
+        &#125;
+</code></pre>
+<h3 id="切入点表达式的几种常见的写法"><a class="markdownIt-Anchor" href="#切入点表达式的几种常见的写法"></a> 切入点表达式的几种常见的写法</h3>
+<pre class="highlight"><code class="java">切入点表达式的固定写法
+固定格式：execution(访问权限符 返回值类型  方法的全签名(参数类型))
+
+    <span class="hljs-comment">/**
+     * 切入点表达式的写法；
+     * 固定格式：execution(访问权限符 返回值类型  方法的全签名(参数类型))
+     * 通配符：
+     *         *  ：1）、匹配一个或者多个字符：execution(public int com.pzx2.impl.MyMath*.*(int ,int ))
+     *             2）、匹配任意一个参数：第一个是int类型，第二个参数是任意类型；（一共匹配两个类型）
+     *             execution(public int com.pzx2.impl.MyMathCalculator.*(int ,* ))
+     *            3）、只能匹配一层路径
+     *            4)、权限位置的*不能表示任意的权限值，权限位置不写，就带表任意的访问修饰符（public【是可选项的】）
+     *
+     *
+     *       .. ： 1）、匹配任意多个参数
+     *              execution(public int com.pzx2.impl.MyMathCalculator.*(..))
+     *             2)匹配任意多层路径
+     *             execution(public int com.pzx2.impl..MyMathCalculator.*(..))
+     *	
+     * 记住两种：
+     * 最精确的写法：execution(public int com.pzx2.impl.MyMathCalculator.add(int,int))
+     * 最模糊的：execution(* *.*(..)):千万别写
+     *
+     * 还可以使用下面的表达式
+     * "&amp;&amp;"、"||"、"!"
+     * MyMathCalculator.add(int , double)
+     * 切入点表达式要满足下面两个表达式才行
+     * execution(public int com.pzx..MyMath*.*(..))  &amp;&amp;  execution(*  *.*(int,int))
+     *||：满足一个表达式即可
+     *
+     *
+     */</span>
+</code></pre>
+<p>将切入点表达式抽取出来可重复使用（<font color='red'>同一个类里面的引用</font>直接用<font color='red'>方法名加上参数列表</font>即可，而不是<font color='red'>同一个类之间的引用的话要用全类</font><font color='red'>名</font>）</p>
+<pre class="highlight"><code class="java"> <span class="hljs-comment">/** 抽取可重用的切入点表达式；
+     * 1、随便声明一个没有实现的返回void的空方法
+     * 2、给方法上标注<span class="hljs-doctag">@Pointcut</span>
+     */</span>
+     
+    <span class="hljs-meta">@Pointcut</span>(<span class="hljs-string">"execution(* com.pzx2.impl..MyMathCalculator.*(..))"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">hahaMyPoint</span><span class="hljs-params">()</span></span>&#123;
+
+    &#125;
+</code></pre>
+<h3 id="环绕通知代码演示"><a class="markdownIt-Anchor" href="#环绕通知代码演示"></a> 环绕通知代码演示</h3>
+<pre class="highlight"><code class="java">   <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@Around</span> :环绕通知是Spring中最强大的通知方法
+     * <span class="hljs-doctag">@Around</span>：环绕动态代理；
+     *
+     * try&#123;
+     *          //前置通知
+     *          method.invoke(obj,args);
+     *          //返回通知
+     *   &#125;catch(Exception e)&#123;
+     *              //异常通知
+     *   &#125;finally&#123;
+     *          //后置通知
+     *   &#125;
+     *
+     *  四合一就是环绕通知
+     *  环绕通知中有一个参数  :  ProceedingJoinPoint pjp
+     *
+     * 环绕通知：是优先于普通通知执行，执行顺序；
+     * [普通方法执行]
+     * &#123;
+     *      try&#123;
+     *             环绕前置
+     *            环绕执行：目标方法执行
+     *            环绕返回
+     *      &#125;catch()&#123;
+     *            环绕出现异常
+     *      &#125;finally&#123;
+     *            环绕后置
+     *      &#125;
+     *
+     *
+     *
+     *
+     * &#125;
+     * [普通后置]
+     * [普通方法返回 / 方法异常]
+     *
+     *
+     *  新的顺序；
+     *          注意：这个是Spring4的运行顺序   环绕前置--&gt;普通方法前置--&gt;目标方法执行--&gt;环绕正常返回/出现异常--&gt;环绕后置--&gt;普通后置--&gt;普通返回或者异常
+     *             Spring5的顺序不同
+     *
+     *
+     *
+     */</span>
+
+
+    <span class="hljs-meta">@Around</span>(<span class="hljs-string">"hahaMyPoint()"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">myAround</span><span class="hljs-params">(ProceedingJoinPoint pjp)</span> </span>&#123;
+        Object proceed=<span class="hljs-keyword">null</span>;
+        Signature signature = pjp.getSignature();
+        String name = signature.getName();
+        <span class="hljs-keyword">try</span> &#123;
+            Object[] args = pjp.getArgs();
+            <span class="hljs-comment">//利用反射推进目标方法即可，就是method.invoke(obj,args);</span>
+            <span class="hljs-comment">//Before</span>
+            System.out.println(<span class="hljs-string">"【环绕前置】【"</span> + name + <span class="hljs-string">"方法开始】"</span>);
+            proceed = pjp.proceed(args);
+            <span class="hljs-comment">//@AfterReturning</span>
+            System.out.println(<span class="hljs-string">"【环绕返回通知】【"</span>+name+<span class="hljs-string">"方法返回，返回值"</span>+proceed+<span class="hljs-string">"】"</span>);
+
+        &#125; <span class="hljs-keyword">catch</span> (Throwable throwable) &#123;
+            <span class="hljs-comment">//@AfterThrowing</span>
+             System.out.println(<span class="hljs-string">"【环绕方法出现异常】【"</span> + name + <span class="hljs-string">"】方法出现异常，异常原因："</span> + throwable);
+                <span class="hljs-comment">//为了让外界知道这个原因，这个异常一定要抛出去</span>
+            <span class="hljs-keyword">throw</span>  <span class="hljs-keyword">new</span> RuntimeException(throwable);
+
+        &#125; <span class="hljs-keyword">finally</span> &#123;
+<span class="hljs-comment">//            @After()</span>
+            System.out.println(<span class="hljs-string">"【环绕后置通知】 【"</span> + name + <span class="hljs-string">"】方法结束"</span>);
+
+
+        &#125;
+
+        <span class="hljs-comment">//反射调用后，返回值一定也返回出去</span>
+        <span class="hljs-keyword">return</span> proceed;
+
+
+    &#125;
+
+
+</code></pre>
+<h3 id="当普通方法与环绕方法一起执行的时候的方法执行顺序"><a class="markdownIt-Anchor" href="#当普通方法与环绕方法一起执行的时候的方法执行顺序"></a> 当普通方法与环绕方法一起执行的时候的方法执行顺序</h3>
+<p><font color='red'>Spring5的执行顺序</font></p>
+<p>环绕前置–&gt;普通方法前置–&gt;目标方法执行–&gt;普通正常返回/出现异常–&gt;普通后置–&gt;环绕正常返回/出现异常–&gt;环绕后置</p>
+<p><img src="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210816101109.png" alt="image-20210816101059968" /></p>
+<h3 id="多切面执行顺序"><a class="markdownIt-Anchor" href="#多切面执行顺序"></a> 多切面执行顺序</h3>
+<p><img src="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210816101159.png" alt="image-20210816101158530" /></p>
+<p><img src="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210816101233.png" alt="image-20210816101224967" /></p>
+<h3 id="xml格式配置通知方法"><a class="markdownIt-Anchor" href="#xml格式配置通知方法"></a> xml格式配置通知方法</h3>
+<pre class="highlight"><code class="xml">  <span class="hljs-comment">&lt;!--  需要AOP名称空间  --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">aop:config</span>&gt;</span>
+
+        <span class="hljs-comment">&lt;!--    声明一个全局的切入点表达式    --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">aop:pointcut</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"globalPoint"</span> <span class="hljs-attr">expression</span>=<span class="hljs-string">"execution(* com.xml.impl.*.*(..))"</span>/&gt;</span>
+
+        <span class="hljs-comment">&lt;!--    指定切面  @Aspect   --&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">aop:aspect</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">"logUtils"</span>&gt;</span>
+                    <span class="hljs-comment">&lt;!--    配置哪个方法是前置通知;method指定方法名
+                        logStart@Before("切入点表达式")
+                    --&gt;</span>
+                    <span class="hljs-comment">&lt;!--    这个表达式只能当前切面能用        --&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">aop:pointcut</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"mypoint"</span> <span class="hljs-attr">expression</span>=<span class="hljs-string">"execution(* com.xml.impl.*.*(..))"</span>/&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">aop:before</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"logStart"</span> <span class="hljs-attr">pointcut-ref</span>=<span class="hljs-string">"mypoint"</span>/&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">aop:after-returning</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"logReturn"</span> <span class="hljs-attr">returning</span>=<span class="hljs-string">"result"</span> <span class="hljs-attr">pointcut-ref</span>=<span class="hljs-string">"mypoint"</span>/&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">aop:after-throwing</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"logException"</span> <span class="hljs-attr">throwing</span>=<span class="hljs-string">"exception"</span> <span class="hljs-attr">pointcut-ref</span>=<span class="hljs-string">"mypoint"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">aop:after-throwing</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">aop:after</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"logEnd"</span> <span class="hljs-attr">pointcut-ref</span>=<span class="hljs-string">"mypoint"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">aop:after</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">aop:around</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"myAround"</span> <span class="hljs-attr">pointcut-ref</span>=<span class="hljs-string">"mypoint"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">aop:around</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">aop:aspect</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">aop:aspect</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">"validateApsect"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">aop:before</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"logStart"</span> <span class="hljs-attr">pointcut-ref</span>=<span class="hljs-string">"globalPoint"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">aop:before</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">aop:after-returning</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"logReturn"</span> <span class="hljs-attr">returning</span>=<span class="hljs-string">"result"</span> <span class="hljs-attr">pointcut-ref</span>=<span class="hljs-string">"globalPoint"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">aop:after-returning</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">aop:after-throwing</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"logException"</span> <span class="hljs-attr">throwing</span>=<span class="hljs-string">"exception"</span>
+                                <span class="hljs-attr">pointcut-ref</span>=<span class="hljs-string">"globalPoint"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">aop:after-throwing</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">aop:after</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"logEnd"</span> <span class="hljs-attr">pointcut-ref</span>=<span class="hljs-string">"globalPoint"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">aop:after</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">aop:aspect</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;/<span class="hljs-name">aop:config</span>&gt;</span>
+</code></pre>
+<p>高版本的tomcat，在SpringMVC使用DELETE、PUT请求时爆错405</p>
+<p><img src="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210818103226.png" alt="image-20210818103218030" /></p>
+<p>解决办法，在jsp页面上加上</p>
+<pre class="highlight"><code class="jsp">&lt;%@ page contentType=<span class="hljs-string">"text/html;charset=UTF-8"</span> language=<span class="hljs-string">"java"</span>
+isErrorPage=<span class="hljs-string">"true"</span> 
+%&gt; 其实主要是加上isErrorPage=<span class="hljs-string">"true"</span> ，告诉tomcat可能会报错
+</code></pre>
+<p><strong>ModelAttribute原理</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220122221350.png" alt="image-20210819225004017" /></p>
+<h2 id="springmvc的运行流程"><a class="markdownIt-Anchor" href="#springmvc的运行流程"></a> SpringMVC的运行流程</h2>
+<p><img src="https://qlwy.oss-cn-shenzhen.aliyuncs.com/img/20210828203148.png" alt="image-20210828203135169" /></p>
+<p>SpringMVC和Spring进行整合时，Spring的Service不能自动装配SpringMVC的Controller是因为在Spring中默认讲Spring作为父容器，SpringMVC作为子容器。子容器可以拿父容器的东西，父容器不能拿子容器</p>
+<img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220122221357.png" alt="image-20210829100815284" style="zoom:60%;" />
+<h2 id="mybatis中的知识点的简单记录"><a class="markdownIt-Anchor" href="#mybatis中的知识点的简单记录"></a> mybatis中的知识点的简单记录</h2>
+<p><a target="_blank" rel="noopener" href="https://199604.com/709">https://199604.com/709</a></p>
+<h3 id="mybatis中一级缓存和二级缓存的示意图"><a class="markdownIt-Anchor" href="#mybatis中一级缓存和二级缓存的示意图"></a> mybatis中一级缓存和二级缓存的示意图</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220122221305.png" alt="image-20210906104506413" /></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ssm/" rel="tag"># ssm</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/22/javaweb%E5%A4%8D%E4%B9%A0/" rel="prev" title="javaweb复习">
+      <i class="fa fa-chevron-left"></i> javaweb复习
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ssm"><span class="nav-number">1.</span> <span class="nav-text"> SSM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E4%B9%A0javaweb"><span class="nav-number">1.1.</span> <span class="nav-text"> 复习JavaWeb</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#filter%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text"> filter流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#listener"><span class="nav-number">1.1.2.</span> <span class="nav-text"> Listener</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ajax%E5%92%8Cjson"><span class="nav-number">1.1.3.</span> <span class="nav-text"> AJAX和JSON</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ajax"><span class="nav-number">1.1.4.</span> <span class="nav-text"> AJAX</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ioc%E5%92%8Cdi"><span class="nav-number">1.2.</span> <span class="nav-text"> IOC和DI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#helloworld%E7%9A%84%E5%B0%8F%E6%80%BB%E7%BB%93"><span class="nav-number">1.2.1.</span> <span class="nav-text"> HelloWorld的小总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.2.</span> <span class="nav-text"> 泛型依赖注入的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E6%88%90%E9%9B%86%E5%90%88"><span class="nav-number">1.2.3.</span> <span class="nav-text"> 将数组转换成集合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#aop"><span class="nav-number">1.3.</span> <span class="nav-text"> AOP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%B0%86spring%E4%B8%AD%E7%9A%84%E4%B8%80%E4%B8%AA%E7%B1%BB%E5%AE%9A%E4%B9%89%E4%B8%BA%E4%B8%80%E4%B8%AA%E5%88%87%E9%9D%A2%E7%B1%BB"><span class="nav-number">1.3.1.</span> <span class="nav-text"> 如何将Spring中的一个类定义为一个切面类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#springaop%E4%BA%94%E5%A4%A7%E9%80%9A%E7%9F%A5%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.3.2.</span> <span class="nav-text"> SpringAOP五大通知注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E5%85%A5%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E5%86%99%E6%B3%95"><span class="nav-number">1.3.3.</span> <span class="nav-text"> 切入点表达式的几种常见的写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E7%BB%95%E9%80%9A%E7%9F%A5%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA"><span class="nav-number">1.3.4.</span> <span class="nav-text"> 环绕通知代码演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%93%E6%99%AE%E9%80%9A%E6%96%B9%E6%B3%95%E4%B8%8E%E7%8E%AF%E7%BB%95%E6%96%B9%E6%B3%95%E4%B8%80%E8%B5%B7%E6%89%A7%E8%A1%8C%E7%9A%84%E6%97%B6%E5%80%99%E7%9A%84%E6%96%B9%E6%B3%95%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-number">1.3.5.</span> <span class="nav-text"> 当普通方法与环绕方法一起执行的时候的方法执行顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%88%87%E9%9D%A2%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-number">1.3.6.</span> <span class="nav-text"> 多切面执行顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xml%E6%A0%BC%E5%BC%8F%E9%85%8D%E7%BD%AE%E9%80%9A%E7%9F%A5%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.7.</span> <span class="nav-text"> xml格式配置通知方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#springmvc%E7%9A%84%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-number">1.4.</span> <span class="nav-text"> SpringMVC的运行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mybatis%E4%B8%AD%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E7%9A%84%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95"><span class="nav-number">1.5.</span> <span class="nav-text"> mybatis中的知识点的简单记录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mybatis%E4%B8%AD%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98%E5%92%8C%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98%E7%9A%84%E7%A4%BA%E6%84%8F%E5%9B%BE"><span class="nav-number">1.5.1.</span> <span class="nav-text"> mybatis中一级缓存和二级缓存的示意图</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xiang"
+      src="/images/author.jpg">
+  <p class="site-author-name" itemprop="name">Xiang</p>
+  <div class="site-description" itemprop="description">今日长缨在手，何时缚住苍龙？</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/losserlong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;losserlong" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1049385564@qq.com" title="E-Mail → mailto:1049385564@qq.com" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xiang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022, 1, 11, 00, 00, 00); //北京时间2018-2-13 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已运行 " +diffYears+" 年 "+diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+    }/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+<span id="sitetime"></span>
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+  <script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+    <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+</html>
