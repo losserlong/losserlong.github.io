@@ -23,17 +23,25 @@
     var CONFIG = {"hostname":"losserlong.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="今日长缨在手，何时缚住苍龙？">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Xiang&#39;s Blog">
-<meta property="og:url" content="https://losserlong.github.io/categories/nginx/index.html">
+  <meta name="description" content="视图  为什么使用视图 **视图一方面可以帮我们使用表的一部分而不是所有的表，另一方面也可以针对不同的用户制定不同的查询视图。**比如，针对一个公司的销售人员，我们只想给他看部分数据，而某些特殊的数据，比如采购的价格，则不会提供给他。再比如，人员薪酬是个敏感的字段，那么只给某个级别以上的人员开放，其他人的查询视图中则不提供这个字段。 刚才讲的只是视图的一个使用场景，实际上视图还有很多作用。最后，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="视图学习">
+<meta property="og:url" content="https://losserlong.github.io/2022/03/11/%E8%A7%86%E5%9B%BE%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Xiang&#39;s Blog">
-<meta property="og:description" content="今日长缨在手，何时缚住苍龙？">
+<meta property="og:description" content="视图  为什么使用视图 **视图一方面可以帮我们使用表的一部分而不是所有的表，另一方面也可以针对不同的用户制定不同的查询视图。**比如，针对一个公司的销售人员，我们只想给他看部分数据，而某些特殊的数据，比如采购的价格，则不会提供给他。再比如，人员薪酬是个敏感的字段，那么只给某个级别以上的人员开放，其他人的查询视图中则不提供这个字段。 刚才讲的只是视图的一个使用场景，实际上视图还有很多作用。最后，">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220310132740.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220310131532.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220310183242.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220310183347.png">
+<meta property="article:published_time" content="2022-03-11T05:12:03.000Z">
+<meta property="article:modified_time" content="2022-03-11T05:15:14.979Z">
 <meta property="article:author" content="Xiang">
+<meta property="article:tag" content="视图">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220310132740.png">
 
-<link rel="canonical" href="https://losserlong.github.io/categories/nginx/">
+<link rel="canonical" href="https://losserlong.github.io/2022/03/11/%E8%A7%86%E5%9B%BE%E5%AD%A6%E4%B9%A0/">
 
 
 <script id="page-configurations">
@@ -41,12 +49,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>分类: nginx | Xiang's Blog</title>
+  <title>视图学习 | Xiang's Blog</title>
   
 
 
@@ -202,51 +210,234 @@
         <div class="content-wrap">
           
 
-          <div class="content category">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">nginx
-          <small>分类</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://losserlong.github.io/2022/03/11/%E8%A7%86%E5%9B%BE%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="Xiang">
+      <meta itemprop="description" content="今日长缨在手，何时缚住苍龙？">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          视图学习
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-11 13:12:03 / 修改时间：13:15:14" itemprop="dateCreated datePublished" datetime="2022-03-11T13:12:03+08:00">2022-03-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
+                </span>
+			  <span>℃</span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
+        <h1 id="视图"><a class="markdownIt-Anchor" href="#视图"></a> 视图</h1>
+<h2 id="为什么使用视图"><a class="markdownIt-Anchor" href="#为什么使用视图"></a> 为什么使用视图</h2>
+<p>**视图一方面可以帮我们使用表的一部分而不是所有的表，另一方面也可以针对不同的用户制定不同的查询视图。**比如，针对一个公司的销售人员，我们只想给他看部分数据，而某些特殊的数据，比如采购的价格，则不会提供给他。再比如，人员薪酬是个敏感的字段，那么只给某个级别以上的人员开放，其他人的查询视图中则不提供这个字段。<br />
+刚才讲的只是视图的一个使用场景，实际上视图还有很多作用。最后，我们总结视图的优点。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220310132740.png" alt="image-20220310132740728" /></p>
+<h2 id="基本概念"><a class="markdownIt-Anchor" href="#基本概念"></a> 基本概念</h2>
+<p>视图(VIEW)：一个或者多个数据表里的数据的逻辑显示，视图并不存储数据（一般用来隐藏敏感数据，例如：工资，银行卡等）</p>
+<ul>
+<li>视图是一种<code>虚拟表</code>，本身是<code>不具有数据</code>的，占用很少的内存空间，它是SQL中的一个重要概念。</li>
+<li><strong>视图建立在已有表的基础上</strong>，视图赖以建立的这些表称为<strong>基表</strong>。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220310131532.png" alt="image-20220310131524928" /></p>
+<ul>
+<li>
+<p><code>视图的创建和删除只影响视图本身，不影响对应的基表。但是当对视图中的数据进行增加、删除和修改操作时，数据表中的数据会相应地发生变化</code>，反之亦然。</p>
+</li>
+<li>
+<p>向视图提供数据内容的语句为SELECT语句,可以将视图理解为<strong>存储起来的SELECT语句</strong></p>
+<ul>
+<li>在数据库中，视图不会保存数据，数据真正保存在数据表中。当对视图中的数据进行增加、删除和修改操作时，数据表中的数据会相应地发生变化;反之亦然。</li>
+</ul>
+</li>
+<li>
+<p>视图，是向用户提供基表数据的另一种表现形式。通常情况下，小型项目的数据库可以不使用视图，但是在大型项目中，以及数据表比较复杂的情况下，视图的价值就凸显出来了，它可以帮助我们把经常查询的结果集放到虚拟表中，提升使用效率。理解和使用起来都非常方便。</p>
+</li>
+<li>
+<p>视图的优点：简化查询；控制数据的访问</p>
+</li>
+</ul>
+<h2 id="创建视图"><a class="markdownIt-Anchor" href="#创建视图"></a> 创建视图</h2>
+<ul>
+<li>在CREATE VIEW语句中嵌入子查询</li>
+</ul>
+<pre class="highlight"><code class="mysql">CREATE [OR REPLACE] 
+[ALGORITHM = &#123;UNDEFINED MERGE |TEMPTABLE&#125;]  (这里是算法)
+VIEW view_name [(字段列表)]
+AS 查询语句
+[WITH [CASCADED |LOCAL ] CHECK OPTION]
+</code></pre>
+<ul>
+<li>精简版</li>
+</ul>
+<pre class="highlight"><code class="mysql">CREATE 
+VIEW view_name [(字段列表)]
+AS 查询语句
+</code></pre>
+<h3 id="创建单表视图"><a class="markdownIt-Anchor" href="#创建单表视图"></a> 创建单表视图</h3>
+<ul>
+<li>针对单表创建视图</li>
+</ul>
+<pre class="highlight"><code class="mysql"># 针对单表创建视图
+
+
+CREATE VIEW emps_view
+AS SELECT * FROM emps;
+
+SELECT * FROM emps_view;
+
+</code></pre>
+<ul>
+<li>确定视图中字段名的方式1</li>
+</ul>
+<pre class="highlight"><code class="mysql">CREATE VIEW emps_view2
+# 查询语句中字段的别名会作为视图的字段名
+AS SELECT employee_id emp_id,last_name lname,salary  
+FROM emps
+WHERE salary&gt;8000;
+</code></pre>
+<ul>
+<li>确定视图中字段名的方式2</li>
+</ul>
+<pre class="highlight"><code class="mysql"># 小括号内字段的个数与SELECT中字段的个数相同
+CREATE VIEW emps_view3 (emp_id,NAME,monthly_sal)
+AS SELECT employee_id emp_id,last_name lname,salary 
+FROM emps
+WHERE salary&gt;8000;
+
+SELECT * FROM emps_view3;	
+
+</code></pre>
+<ul>
+<li>情况二：视图中的字段在基表中可能没有对应的字段（用了函数）</li>
+</ul>
+<pre class="highlight"><code class="mysql">CREATE VIEW emp_sal
+AS 
+SELECT department_id,AVG(salary) avg_sal
+FROM emps
+WHERE department_id IS NOT NULL
+GROUP BY department_id;
+
+SELECT * FROM emp_sal;
+</code></pre>
+<h3 id="针对多表创建联合视图"><a class="markdownIt-Anchor" href="#针对多表创建联合视图"></a> 针对多表（创建联合视图）</h3>
+<pre class="highlight"><code class="mysql">SELECT e.`employee_id`,e.`department_id`,d.`department_name`
+FROM `depts` d JOIN  `emps` e
+ON d.`department_id`=e.`department_id`;
+</code></pre>
+<ul>
+<li>利用视图对数据进行格式化</li>
+</ul>
+<pre class="highlight"><code class="mysq">CREATE VIEW vu_emp_dept1
+AS 
+SELECT CONCAT(e.last_name,'(',d.department_name,')') emp_info
+FROM `emps` e JOIN
+`depts` d
+ON e.department_id=d.department_id;
+
+SELECT * FROM vu_emp_dept1;
+</code></pre>
+<h3 id="基于视图创建视图"><a class="markdownIt-Anchor" href="#基于视图创建视图"></a> 基于视图创建视图</h3>
+<pre class="highlight"><code class="mysql"># 2.3基于视图创建视图
+CREATE VIEW vu_emp4
+AS SELECT first_name , last_name
+FROM emps_view;
+
+SELECT * FROM vu_emp4;
+</code></pre>
+<h2 id="查看视图其实和显示表差不多"><a class="markdownIt-Anchor" href="#查看视图其实和显示表差不多"></a> 查看视图（其实和显示表差不多）</h2>
+<ul>
+<li>语法一：查看数据库的表对象、视图对象</li>
+</ul>
+<pre class="highlight"><code class="mysql">SHOW TABLES;
+</code></pre>
+<ul>
+<li>语法二：查看试视图的结构</li>
+</ul>
+<pre class="highlight"><code class="mysql">DESC / DESCRIBE 视图名称;
+</code></pre>
+<ul>
+<li>语法三：查看视图的属性信息</li>
+</ul>
+<pre class="highlight"><code class="mysql">#查看视图的属性信息
+
+SHOW TABLE STATUS LIKE '视图名称';
+</code></pre>
+<p>执行结果显示，注释Comment为VIEW，说明该表为视图，其他信息为null，说明这是一个虚表。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220310183242.png" alt="image-20220310183242006" /></p>
+<ul>
+<li>语法四：查看视图的详细定义信息</li>
+</ul>
+<pre class="highlight"><code class="mysql">SHOW CREATE VIEW  vu_emp4; 	
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220310183347.png" alt="image-20220310183347480" /></p>
+<h2 id="视图的dml操作"><a class="markdownIt-Anchor" href="#视图的dml操作"></a> 视图的DML操作</h2>
+<p>视图的DML操作和对表的操作几乎没有什么差别，就不再赘述了。</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-01-20T19:47:18+08:00"
-              content="2022-01-20">
-          01-20
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%A7%86%E5%9B%BE/" rel="tag"># 视图</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/01/20/nginx%E5%AD%A6%E4%B9%A0/" itemprop="url">
-            <span itemprop="name">nginx学习</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/22/ssm%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/" rel="prev" title="ssm简单笔记">
+      <i class="fa fa-chevron-left"></i> ssm简单笔记
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
-
-    </div>
-  </div>
   
   
-  
-
   
 
 
@@ -299,6 +490,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE"><span class="nav-number">1.</span> <span class="nav-text"> 视图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E8%A7%86%E5%9B%BE"><span class="nav-number">1.1.</span> <span class="nav-text"> 为什么使用视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text"> 基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%A7%86%E5%9B%BE"><span class="nav-number">1.3.</span> <span class="nav-text"> 创建视图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%8D%95%E8%A1%A8%E8%A7%86%E5%9B%BE"><span class="nav-number">1.3.1.</span> <span class="nav-text"> 创建单表视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%92%88%E5%AF%B9%E5%A4%9A%E8%A1%A8%E5%88%9B%E5%BB%BA%E8%81%94%E5%90%88%E8%A7%86%E5%9B%BE"><span class="nav-number">1.3.2.</span> <span class="nav-text"> 针对多表（创建联合视图）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E8%A7%86%E5%9B%BE%E5%88%9B%E5%BB%BA%E8%A7%86%E5%9B%BE"><span class="nav-number">1.3.3.</span> <span class="nav-text"> 基于视图创建视图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E8%A7%86%E5%9B%BE%E5%85%B6%E5%AE%9E%E5%92%8C%E6%98%BE%E7%A4%BA%E8%A1%A8%E5%B7%AE%E4%B8%8D%E5%A4%9A"><span class="nav-number">1.4.</span> <span class="nav-text"> 查看视图（其实和显示表差不多）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E7%9A%84dml%E6%93%8D%E4%BD%9C"><span class="nav-number">1.5.</span> <span class="nav-text"> 视图的DML操作</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
