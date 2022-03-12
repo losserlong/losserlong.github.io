@@ -136,17 +136,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">8</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">9</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">7</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">8</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">9</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
@@ -204,6 +204,229 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://losserlong.github.io/2022/03/12/MySQL%E4%B8%AD%E7%9A%84SQL%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="Xiang">
+      <meta itemprop="description" content="今日长缨在手，何时缚住苍龙？">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/12/MySQL%E4%B8%AD%E7%9A%84SQL%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">MySQL中的SQL执行流程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-12 23:10:47 / 修改时间：23:12:35" itemprop="dateCreated datePublished" datetime="2022-03-12T23:10:47+08:00">2022-03-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
+                </span>
+			  <span>℃</span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="sql执行流程"><a class="markdownIt-Anchor" href="#sql执行流程"></a> SQL执行流程</h1>
+<h2 id="mysql的配置文件的位置"><a class="markdownIt-Anchor" href="#mysql的配置文件的位置"></a> MySQL的配置文件的位置</h2>
+<pre class="highlight"><code class="bash">/etc/my.cnf
+</code></pre>
+<h2 id="mysql中的sql执行流程比较重要"><a class="markdownIt-Anchor" href="#mysql中的sql执行流程比较重要"></a> MySQL中的SQL执行流程（<strong>比较重要</strong>）</h2>
+<p><img src="C:/Users/losser/AppData/Roaming/Typora/typora-user-images/image-20220311193805957.png" alt="image-20220311193805957" /></p>
+<p>MySQL的查询流程</p>
+<ol>
+<li>查询缓存：Server如果在查询缓存中发现了这条SQL语句，就会直接将结果返回给客户端；如果没有，如果进入到解析器阶段。需要说明的是，因为查询混窜往往效率不高，所以在MySQL8.0之后就抛弃了这个功能</li>
+</ol>
+<p>MySQL拿到一个查询请求后，会先到查询缓存看看，之前是不是执行过这条语句。<code>之前执行过的语句及其结果可能会以key-value对的形式，被直接缓存在内存中</code>。key是查询的语句，value是查询的结果。如果你的查询能够直接在这个缓存中找到key，那么这个value就会被直接返回给客户端。如果语句不在查询缓存中，就会继续后面的执行阶段。<code>执行完成后，执行结果会被存入查询缓存中。</code>所以，如果查询命中缓存，MySQL不需要执行后面的复杂操作，就可以直接返回结果，这个效率会很高。</p>
+<p><strong>大多数情况查询缓存就是个鸡肋，为什么呢?</strong></p>
+<p>查询缓存是提前把查询结果缓存起来，这样下次不需要执行就可以直接拿到结果。需要说明的是，在MySQL中的查询缓存，不是缓存查询计划，而是查询对应的结果。这就意味着查询匹配的<code>鲁棒性大大降低</code>，只有<code>相同的查询操作才会命中查询缓存</code>。两个查询请求在任何字符上的不同（例如:空格、注释、大小写)，都会导致缓存不会命中。因此 MySQL的<code>查询缓存命中率不高</code>。</p>
+<p>同时，如果查询请求中包含某些系统函数、用户自定义变量和函数、一些系统表，如mysql、     information_schema、performance_schema数据库中的表，那这个请求就不会被缓存。以某些系统函数举例，可能同样的函数的两次调用会产生不一样的结果，比如函数<code>NOW</code>，每次调用都会产生最新的当前时间，如果在一个查询请求中调用了这个函数，那即使查询请求的文本信息都一样，那不同时间的两次查询也应该得到不同的结果，如果在第一次查询时就缓存了，那第二次查询的时候直接使用第一次查询的结果就是错误的!</p>
+<p>此外，既然是缓存，那就有它<code>缓存失效</code>的时候。MySQL的缓存系统会监测涉及到的每张表，只要该表的结构或者数据被修改，如对该表使用了<code>INSERT</code>、<code>UPDATE</code>、<code>DELETE</code>、<code>TRUNCATE TABLE</code>、<code>ALTER TABLE</code>、<code>DROPT ABLE</code>或 <code>DROP DATABASE</code>语句，那使用该表的所有高速缓存查询都将变为无效并从高速缓存中删除!对于<code>更新压力大的数据库</code>来说，查询缓存的命中率会非常低。</p>
+<p><strong>总之，因为查询缓存往往弊大于利，查询缓存的失效非常频繁。</strong></p>
+<p>一般建议大家在静态表里使用查询缓存，什么叫<code>静态表</code>呢?就是一般我们<code>极少更新</code>的表。比如，一个系统配置表、字典表，这张表上的查询才适合使用查询缓存。好在MySQL也提供了这种“<code>按需使用</code>”的方式。你可以将<code>my.cnf</code>参数<code>query_cache_type</code>设置成<code>DEMAND</code>，代表当sql语句中有SQL_CACHE关键词时才缓存。比如:</p>
+<pre class="highlight"><code class="MYSQL">#query_cache_type有3个值0代表关闭查询缓存0FF，1代表开启ON，2(DEMAND)
+query_cache_type=2
+</code></pre>
+<p>这样对于默认的SQL语句都不使用查询缓存。而对于你确定要使用查询缓存的语句，可以用SQL_CACHE显式指定，像下面这个语句一样:</p>
+<pre class="highlight"><code class="MYSQL">select sQL_CACHE * from test where ID=5;
+</code></pre>
+<p>如果SQL语句正确，则会生成这样一颗语法树</p>
+<p><img src="C:/Users/losser/AppData/Roaming/Typora/typora-user-images/image-20220311200936291.png" alt="image-20220311200936291" /></p>
+<p>下面是SQL词法分析过程</p>
+<p><img src="C:/Users/losser/AppData/Roaming/Typora/typora-user-images/image-20220311201050345.png" alt="image-20220311201050345" /></p>
+<p>都有哪些维度可以进行数据库调优?简言之:。</p>
+<ul>
+<li>
+<p>索引失效，没有充分利用到索引——索引建立</p>
+</li>
+<li>
+<p>关联查询太多JOIN(设计缺陷或不得已的需求)——SQL优化</p>
+</li>
+<li>
+<p>服务器调优及各个参数设置（缓冲、线程数等）——调整my.cnf</p>
+</li>
+<li>
+<p>数据过多――分库分表</p>
+</li>
+</ul>
+<p>比如：表test中，ID字段没有索引，那么执行流程是这样的：</p>
+<pre class="highlight"><code class="">调用InnoDB引擎接口取这个表的第一行，判断ID值是不是1，如果不是则跳过，如果是则将这行存在结果集中;调用引擎接口取&quot;下一行&quot;，重复相同的判断逻辑，直到取到这个表的最后一行。
+
+执行器将上述遍历过程中所有满足条件的行组成的记录集作为结果集返回给客户端。
+</code></pre>
+<p>至此，这个语句就执行完成了。对于有索引的表，执行的逻辑也差不多。</p>
+<p>SQL语句在MySQL中的执行流程是：<code>SQL语句-&gt;查询缓存-&gt;解析器-&gt;优化器-&gt;执行器</code></p>
+<p><img src="C:/Users/losser/AppData/Roaming/Typora/typora-user-images/image-20220312103517990.png" alt="image-20220312103517990" /></p>
+<h2 id="mysql8中的sql执行原理"><a class="markdownIt-Anchor" href="#mysql8中的sql执行原理"></a> MySQL8中的SQL执行原理</h2>
+<p>前面的结构图很复杂，我们需要抓取最核心的部分: SQL的执行原理。不同的DBMS的SQL的执行原理是相通的，只是在不同的软件中，各有各的实现路径。</p>
+<p>既然一条SQL语句会经历不同的模块，那我们就来看下，在不同的模块中，SQL执行所使用的资源(时间）是怎样的。如何在MysQL中对一条SQL语句的执行时间进行分析。</p>
+<h3 id="确认profiling是否开启"><a class="markdownIt-Anchor" href="#确认profiling是否开启"></a> 确认profiling是否开启</h3>
+<p>了解查询语句底层执行的过程: <code>select @@profiling;</code>或者<code>show variables like '%profiling%'</code>查看是否开启计划。开启它可以让MySQL收集在SQL执行时所使用的资源情况，命令如下:</p>
+<pre class="highlight"><code class="mysql">select  @@profiling;
+
+show variables like '%profiling%';
+</code></pre>
+<p><img src="C:/Users/losser/AppData/Roaming/Typora/typora-user-images/image-20220312112750210.png" alt="image-20220312112750210" /></p>
+<p><img src="C:/Users/losser/AppData/Roaming/Typora/typora-user-images/image-20220312113008529.png" alt="image-20220312113008529" /></p>
+<p>profiling=0代表关闭，我们需要把profiling打开，即设置为1:</p>
+<pre class="highlight"><code class="mysql">set profiling =1;
+</code></pre>
+<p>Profiling功能由MySQL会话变量：profiling控制。默认是OFF（关闭状态）</p>
+<pre class="highlight"><code class="mysql">show profiles;
+</code></pre>
+<h3 id="多次执行相同的sql查询查看profiles"><a class="markdownIt-Anchor" href="#多次执行相同的sql查询查看profiles"></a> 多次执行相同的SQL查询&amp;&amp;查看profiles</h3>
+<p>查看之前的执行的SQL语句</p>
+<p><img src="C:/Users/losser/AppData/Roaming/Typora/typora-user-images/image-20220312114806095.png" alt="image-20220312114806095" /></p>
+<h3 id="查看profile"><a class="markdownIt-Anchor" href="#查看profile"></a> 查看profile</h3>
+<p>查看最近执行的一条SQL语句，也就是第12条</p>
+<p><img src="C:/Users/losser/AppData/Roaming/Typora/typora-user-images/image-20220312114910197.png" alt="image-20220312114910197" /></p>
+<p>查看指定的一条SQL的执行时间</p>
+<pre class="highlight"><code class="mysql">mysql&gt; show profile for query 10;
+</code></pre>
+<p><img src="C:/Users/losser/AppData/Roaming/Typora/typora-user-images/image-20220312115056782.png" alt="image-20220312115056782" /></p>
+<p>1、查看cpu还有io的相关开销</p>
+<pre class="highlight"><code class="mysql">mysql&gt; show profile cpu , block io for query 6;
+</code></pre>
+<p><img src="C:/Users/losser/AppData/Roaming/Typora/typora-user-images/image-20220312125251907.png" alt="image-20220312125251907" /></p>
+<h2 id="在mysql57中sql执行原理"><a class="markdownIt-Anchor" href="#在mysql57中sql执行原理"></a> 在MySQL5.7中SQL执行原理</h2>
+<h3 id="配置文件中开启查询缓存"><a class="markdownIt-Anchor" href="#配置文件中开启查询缓存"></a> 配置文件中开启查询缓存</h3>
+<pre class="highlight"><code class="bash">vim /etc/my.cnf
+在里面加上
+query_cache_type=1
+</code></pre>
+<h3 id="重启mysql服务"><a class="markdownIt-Anchor" href="#重启mysql服务"></a> 重启mysql服务</h3>
+<pre class="highlight"><code class="bash">systemctl restart mysqld
+</code></pre>
+<h3 id="开启查询执行计划"><a class="markdownIt-Anchor" href="#开启查询执行计划"></a> 开启查询执行计划</h3>
+<pre class="highlight"><code class="mysql">set profiling =1;
+</code></pre>
+<h3 id="执行语句两次"><a class="markdownIt-Anchor" href="#执行语句两次"></a> 执行语句两次</h3>
+<pre class="highlight"><code class="mysql"> use atguigudb;
+select * from employees limit 4;
+select * from employees limit 4;
+</code></pre>
+<h3 id="查看profiles"><a class="markdownIt-Anchor" href="#查看profiles"></a> 查看profiles</h3>
+<p><img src="C:/Users/losser/AppData/Roaming/Typora/typora-user-images/image-20220312130514358.png" alt="image-20220312130514358" /></p>
+<h3 id="查看profile-2"><a class="markdownIt-Anchor" href="#查看profile-2"></a> 查看profile</h3>
+<p><img src="C:/Users/losser/AppData/Roaming/Typora/typora-user-images/image-20220312131256754.png" alt="image-20220312131256754" /></p>
+<p><img src="C:/Users/losser/AppData/Roaming/Typora/typora-user-images/image-20220312131313018.png" alt="image-20220312131313018" /></p>
+<p>1、除了查看cpu、io阻塞等参数情况，还可以查询下列相关参数的利用情况</p>
+<pre class="highlight"><code class="mysql">Syntax:
+SHow PROFILE [type [, type] ... ]
+[ FOR QUERY n]
+[LIMIT row_count [OFFSET offset]]
+type: &#123;
+ALL 	--显示所有参数的开销信息
+|BLOCK I0 --显示I0的相关开销
+|CONTEXT SWITCHES -- 上下文切换相关开销
+|CPU --显示CPU相关开销信息
+|IPC --显示发送和接收相关开销信息
+|MEMORY --显示内存相关开销信息
+|PAGE FAULTS --显示页面错误精关开销信息
+|SOURCE --显示和Source_function, Source_file , Source_line 相关的开销信息
+|SWAPS --显示交换次数相关的开销信息
+</code></pre>
+<p>2、发现两次查询当前情况都一致，说明没有缓存之说。</p>
+<p>在8.0 版本之后，MySQL不再支持缓存的查询。一旦数据表有更新，缓存都将清空，因此只有数据表是静态的时候，或者数据表很少发生变化时，使用缓存查询才有价值，否则如果数据表经常更新，反而增加了SQL的查询时间。</p>
+<p><strong>注意在8.0中是不存在查询缓存的</strong></p>
+<h2 id="sql语法顺序"><a class="markdownIt-Anchor" href="#sql语法顺序"></a> SQL语法顺序</h2>
+<p>随着MySQL版本的更新换代，其优化器也在不断的升级，优化器会分析不同执行顺序产生的性能消耗不同而动态调整执行顺序。</p>
+<p>需求：查询每个部门年龄高于20岁的人数且高于20岁人数不能少于2人，显示人数最多的第一名部门信息<br />
+下面是经常出现的查询顺序：</p>
+<p><strong>手写：</strong></p>
+<pre class="highlight"><code class="mysql">SELECT DISTINCT 
+&lt;select_list&gt;
+FROM
+&lt;left_table&gt; &lt;join_type&gt;
+JOIN &lt;right_table&gt; ON &lt;join_condition&gt;
+WHERE
+&lt;where_condition&gt;
+GROUP BY
+&lt;group_by_list&gt;
+HAVING
+&lt;having_condition&gt;
+ORDER BY
+&lt;order_by_condition&gt;
+LIMIT 
+&lt;limit_number&gt;
+</code></pre>
+<p>机读：</p>
+<pre class="highlight"><code class="mysql">FROM &lt;left_table&gt;
+ON &lt;join_condition&gt;
+&lt;join_type&gt; JOIN &lt;right_table&gt;
+WHERE &lt;where_condition&gt;
+GROUP BY &lt;group_by_list&gt;
+HAVING &lt;having_condition&gt;
+SELECT
+DISTINCT &lt;select_list&gt;
+ORDER BY &lt;order_by_condition&gt;
+LIMIT &lt;limit_number&gt;
+</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1215,7 +1438,7 @@ sudo firewall -cmd --add-port=80/tcp --permanent
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-21 20:57:58" itemprop="dateModified" datetime="2022-01-21T20:57:58+08:00">2022-01-21</time>
+                <time title="修改时间：2022-03-12 23:11:45" itemprop="dateModified" datetime="2022-03-12T23:11:45+08:00">2022-03-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1223,7 +1446,7 @@ sudo firewall -cmd --add-port=80/tcp --permanent
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
+                  <a href="/categories/%E4%BA%8B%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">事务</span></a>
                 </span>
 			  <span>℃</span>
             </span>
@@ -1441,20 +1664,20 @@ rollback;
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
