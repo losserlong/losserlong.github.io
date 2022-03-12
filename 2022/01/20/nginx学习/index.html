@@ -23,12 +23,12 @@
     var CONFIG = {"hostname":"losserlong.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="nginx安装第一步， 安装 pcrewget http:&#x2F;&#x2F;downloads.sourceforge.net&#x2F;project&#x2F;pcre&#x2F;pcre&#x2F;8.37&#x2F;pcre-8.37.tar.gz  解压文件tar -zxvf pcre-8.37.tar.gz .&#x2F;configure 完成后，回到 pcre 目录下执行 make，  第二步， 安装 openssl第三步， 安装 zlibyum -y">
+  <meta name="description" content="nginx安装  第一步， 安装 pcre wget http:&#x2F;&#x2F;downloads.sourceforge.net&#x2F;project&#x2F;pcre&#x2F;pcre&#x2F;8.37&#x2F;pcre-8.37.tar.gz   解压文件 tar -zxvf pcre-8.37.tar.gz .&#x2F;configure 完成后，回到 pcre 目录下执行 make，   第二步， 安装 openssl  第三步， 安装 zl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nginx学习">
 <meta property="og:url" content="https://losserlong.github.io/2022/01/20/nginx%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Xiang&#39;s Blog">
-<meta property="og:description" content="nginx安装第一步， 安装 pcrewget http:&#x2F;&#x2F;downloads.sourceforge.net&#x2F;project&#x2F;pcre&#x2F;pcre&#x2F;8.37&#x2F;pcre-8.37.tar.gz  解压文件tar -zxvf pcre-8.37.tar.gz .&#x2F;configure 完成后，回到 pcre 目录下执行 make，  第二步， 安装 openssl第三步， 安装 zlibyum -y">
+<meta property="og:description" content="nginx安装  第一步， 安装 pcre wget http:&#x2F;&#x2F;downloads.sourceforge.net&#x2F;project&#x2F;pcre&#x2F;pcre&#x2F;8.37&#x2F;pcre-8.37.tar.gz   解压文件 tar -zxvf pcre-8.37.tar.gz .&#x2F;configure 完成后，回到 pcre 目录下执行 make，   第二步， 安装 openssl  第三步， 安装 zl">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195047.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195050.png">
@@ -39,7 +39,6 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195127.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195131.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220121100741.png">
-<meta property="og:image" content="file:///C:/Users/losser/AppData/Local/Temp/msohtmlclip1/01/clip_image001.gif">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195141.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195147.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195149.png">
@@ -167,7 +166,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">7</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">8</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -177,7 +176,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">7</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">8</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
@@ -294,207 +293,249 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="nginx安装"><a href="#nginx安装" class="headerlink" title="nginx安装"></a>nginx安装</h1><h2 id="第一步，-安装-pcre"><a href="#第一步，-安装-pcre" class="headerlink" title="第一步， 安装 pcre"></a>第一步， 安装 pcre</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">wget</span> http://downloads.sourceforge.net/project/pcre/pcre/8.37/pcre-8.37.tar.gz
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="解压文件"><a href="#解压文件" class="headerlink" title="解压文件"></a>解压文件</h3><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">tar</span> -zxvf pcre-8.37.tar.gz
-./configure 完成后，回到 pcre 目录下执行 make，
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h2 id="第二步，-安装-openssl"><a href="#第二步，-安装-openssl" class="headerlink" title="第二步， 安装 openssl"></a>第二步， 安装 openssl</h2><h2 id="第三步，-安装-zlib"><a href="#第三步，-安装-zlib" class="headerlink" title="第三步， 安装 zlib"></a>第三步， 安装 zlib</h2><pre class="line-numbers language-bash"><code class="language-bash">yum -y <span class="token function">install</span> <span class="token function">make</span> zlib zlib-devel gcc-c++ libtool openssl openssl-devel
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="第四步，-安装-nginx"><a href="#第四步，-安装-nginx" class="headerlink" title="第四步， 安装 nginx"></a>第四步， 安装 nginx</h2><p>1、 解压缩 nginx-xx.tar.gz 包  </p>
-<p>2、 进入解压缩目录， 执行./configure。  </p>
-<p>3、 make &amp;&amp; make install  </p>
-<h3 id="设置nginx的环境变量"><a href="#设置nginx的环境变量" class="headerlink" title="设置nginx的环境变量"></a>设置nginx的环境变量</h3><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">ln</span> -s /usr/local/nginx/sbin/nginx /usr/local/bin/
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="查看开放的端口号"><a href="#查看开放的端口号" class="headerlink" title="查看开放的端口号"></a>查看开放的端口号</h3><pre class="line-numbers language-bash"><code class="language-bash">firewall -cmd --list-all
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="设置开放的端口号"><a href="#设置开放的端口号" class="headerlink" title="设置开放的端口号"></a>设置开放的端口号</h3><pre class="line-numbers language-bash"><code class="language-bash">firewall -cmd --add-service<span class="token operator">=</span>http –permanent
-<span class="token function">sudo</span> firewall -cmd --add-port<span class="token operator">=</span>80/tcp --permanent
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h3 id="重启防火墙"><a href="#重启防火墙" class="headerlink" title="重启防火墙"></a>重启防火墙</h3><pre class="line-numbers language-bash"><code class="language-bash">firewall-cmd –reload
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<span id="more"></span>
-
-<h1 id="nginx的常用指令"><a href="#nginx的常用指令" class="headerlink" title="nginx的常用指令"></a>nginx的常用指令</h1><pre><code>## （ 1）启动命令  
+        <h1 id="nginx安装"><a class="markdownIt-Anchor" href="#nginx安装"></a> nginx安装</h1>
+<h2 id="第一步-安装-pcre"><a class="markdownIt-Anchor" href="#第一步-安装-pcre"></a> 第一步， 安装 pcre</h2>
+<pre class="highlight"><code class="bash">wget http://downloads.sourceforge.net/project/pcre/pcre/8.37/pcre-8.37.tar.gz
 </code></pre>
-<pre class="line-numbers language-bash"><code class="language-bash">在/usr/local/nginx/sbin 目录下执行 ./nginx
+<h3 id="解压文件"><a class="markdownIt-Anchor" href="#解压文件"></a> 解压文件</h3>
+<pre class="highlight"><code class="bash">tar -zxvf pcre-8.37.tar.gz
+./configure 完成后，回到 pcre 目录下执行 make，
+</code></pre>
+<h2 id="第二步-安装-openssl"><a class="markdownIt-Anchor" href="#第二步-安装-openssl"></a> 第二步， 安装 openssl</h2>
+<h2 id="第三步-安装-zlib"><a class="markdownIt-Anchor" href="#第三步-安装-zlib"></a> 第三步， 安装 zlib</h2>
+<pre class="highlight"><code class="bash">yum -y install make zlib zlib-devel gcc-c++ libtool openssl openssl-devel
+</code></pre>
+<h2 id="第四步-安装-nginx"><a class="markdownIt-Anchor" href="#第四步-安装-nginx"></a> 第四步， 安装 nginx</h2>
+<p>1、 解压缩 nginx-xx.tar.gz 包</p>
+<p>2、 进入解压缩目录， 执行./configure。</p>
+<p>3、 make &amp;&amp; make install</p>
+<h3 id="设置nginx的环境变量"><a class="markdownIt-Anchor" href="#设置nginx的环境变量"></a> 设置nginx的环境变量</h3>
+<pre class="highlight"><code class="bash">ln -s /usr/<span class="hljs-built_in">local</span>/nginx/sbin/nginx /usr/<span class="hljs-built_in">local</span>/bin/
+</code></pre>
+<h3 id="查看开放的端口号"><a class="markdownIt-Anchor" href="#查看开放的端口号"></a> 查看开放的端口号</h3>
+<pre class="highlight"><code class="bash">firewall -cmd --list-all
+</code></pre>
+<h3 id="设置开放的端口号"><a class="markdownIt-Anchor" href="#设置开放的端口号"></a> 设置开放的端口号</h3>
+<pre class="highlight"><code class="bash">firewall -cmd --add-service=http –permanent
+sudo firewall -cmd --add-port=80/tcp --permanent
+</code></pre>
+<h3 id="重启防火墙"><a class="markdownIt-Anchor" href="#重启防火墙"></a> 重启防火墙</h3>
+<pre class="highlight"><code class="bash">firewall-cmd –reload
+</code></pre>
+<span id="more"></span>
+<h1 id="nginx的常用指令"><a class="markdownIt-Anchor" href="#nginx的常用指令"></a> nginx的常用指令</h1>
+<pre><code>## （ 1）启动命令  
+</code></pre>
+<pre class="highlight"><code class="bash">在/usr/<span class="hljs-built_in">local</span>/nginx/sbin 目录下执行 ./nginx
 因为配置了环境变量，可以直接使用nginx
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</code></pre>
 <pre><code>## （ 2）关闭命令  
 </code></pre>
-<pre class="line-numbers language-bash"><code class="language-bash">在/usr/local/nginx/sbin 目录下执行 ./nginx -s stop
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="（-3）-重新加载命令-这个是热加载的方式"><a href="#（-3）-重新加载命令-这个是热加载的方式" class="headerlink" title="（ 3） 重新加载命令  这个是热加载的方式"></a>（ 3） 重新加载命令  这个是热加载的方式</h2><pre class="line-numbers language-bash"><code class="language-bash">在/usr/local/nginx/sbin 目录下执行 ./nginx -s reload
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="tomtcat的安装目录"><a href="#tomtcat的安装目录" class="headerlink" title="tomtcat的安装目录"></a>tomtcat的安装目录</h2><pre class="line-numbers language-txt"><code class="language-txt">/usr/src/apache-tomcat-9.0.52/bin
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="配置反向代理（1）"><a href="#配置反向代理（1）" class="headerlink" title="配置反向代理（1）"></a>配置反向代理（1）</h1><p>先要在Windows的C:\Windows\System32\drivers\etc下的hosts里面加上192.168.58.130   <a target="_blank" rel="noopener" href="http://www.123.com/">www.123.com</a></p>
+<pre class="highlight"><code class="bash">在/usr/<span class="hljs-built_in">local</span>/nginx/sbin 目录下执行 ./nginx -s stop
+</code></pre>
+<h2 id="3-重新加载命令-这个是热加载的方式"><a class="markdownIt-Anchor" href="#3-重新加载命令-这个是热加载的方式"></a> （ 3） 重新加载命令  这个是热加载的方式</h2>
+<pre class="highlight"><code class="bash">在/usr/<span class="hljs-built_in">local</span>/nginx/sbin 目录下执行 ./nginx -s reload
+</code></pre>
+<h2 id="tomtcat的安装目录"><a class="markdownIt-Anchor" href="#tomtcat的安装目录"></a> tomtcat的安装目录</h2>
+<pre class="highlight"><code class="txt">/usr/src/apache-tomcat-9.0.52/bin
+</code></pre>
+<h1 id="配置反向代理1"><a class="markdownIt-Anchor" href="#配置反向代理1"></a> 配置反向代理（1）</h1>
+<p>先要在Windows的C:\Windows\System32\drivers\etc下的hosts里面加上192.168.58.130   <a target="_blank" rel="noopener" href="http://www.123.com">www.123.com</a></p>
 <p><font color='red'>注意这个要用editplus打开，管理员运行</font></p>
-<pre class="line-numbers language-txt"><code class="language-txt">这个是在nginx.config
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="highlight"><code class="txt">这个是在nginx.config
+</code></pre>
 <p>这个nginx的配置文件是在**/usr/local/nginx/conf**</p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195047.png" alt="image-20210909110313430"></p>
-<pre class="line-numbers language-bash"><code class="language-bash">这个proxy_pass http://127.0.0.1:8080这个是要转发的路径    
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195050.png" alt="image-20210909113916794"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195117.png" alt="image-20220118203823143"></p>
-<h1 id="Nginx配置实例-反向代理（2）"><a href="#Nginx配置实例-反向代理（2）" class="headerlink" title="Nginx配置实例-反向代理（2）"></a>Nginx配置实例-反向代理（2）</h1><p>实现效果：使用 nginx 反向代理， 根据访问的路径跳转到不同端口的服务中<br>nginx 监听端口为 9001，<br>访问 <a target="_blank" rel="noopener" href="http://127.0.0.1:9001/edu/">http://127.0.0.1:9001/edu/</a> 直接跳转到 127.0.0.1:8081<br>访问 <a target="_blank" rel="noopener" href="http://127.0.0.1:9001/vod/">http://127.0.0.1:9001/vod/</a> 直接跳转到 127.0.0.1:8082  </p>
-<h2 id="这个是在nginx-conf里面配置"><a href="#这个是在nginx-conf里面配置" class="headerlink" title="这个是在nginx.conf里面配置"></a>这个是在nginx.conf里面配置</h2><pre class="line-numbers language-bash"><code class="language-bash">    server <span class="token punctuation">{</span>
-        listen       9001<span class="token punctuation">;</span>
-        server_name  192.168.58.130<span class="token punctuation">;</span>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195047.png" alt="image-20210909110313430" /></p>
+<pre class="highlight"><code class="bash">这个proxy_pass http://127.0.0.1:8080这个是要转发的路径	
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195050.png" alt="image-20210909113916794" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195117.png" alt="image-20220118203823143" /></p>
+<h1 id="nginx配置实例-反向代理2"><a class="markdownIt-Anchor" href="#nginx配置实例-反向代理2"></a> Nginx配置实例-反向代理（2）</h1>
+<p>实现效果：使用 nginx 反向代理， 根据访问的路径跳转到不同端口的服务中<br />
+nginx 监听端口为 9001，<br />
+访问 <a target="_blank" rel="noopener" href="http://127.0.0.1:9001/edu/">http://127.0.0.1:9001/edu/</a> 直接跳转到 127.0.0.1:8081<br />
+访问 <a target="_blank" rel="noopener" href="http://127.0.0.1:9001/vod/">http://127.0.0.1:9001/vod/</a> 直接跳转到 127.0.0.1:8082</p>
+<h2 id="这个是在nginxconf里面配置"><a class="markdownIt-Anchor" href="#这个是在nginxconf里面配置"></a> 这个是在nginx.conf里面配置</h2>
+<pre class="highlight"><code class="bash">    server &#123;
+        listen       9001;
+        server_name  192.168.58.130;
 
-        <span class="token comment" spellcheck="true"># 这个~表示的是后面是正则表达式的意思，如果路径中有edu就跳转到http://127.0.0.1:8080</span>
-        location ~ /edu/ <span class="token punctuation">{</span>
-           proxy_pass http://127.0.0.1:8080<span class="token punctuation">;</span>
+		<span class="hljs-comment"># 这个~表示的是后面是正则表达式的意思，如果路径中有edu就跳转到http://127.0.0.1:8080</span>
+        location ~ /edu/ &#123;
+           proxy_pass http://127.0.0.1:8080;
 
- <span class="token punctuation">}</span>
-        location ~ /vod/ <span class="token punctuation">{</span>
-           proxy_pass http://127.0.0.1:8081<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+ &#125;
+        location ~ /vod/ &#123;
+           proxy_pass http://127.0.0.1:8081;
+&#125;
 
-   <span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195906.png" alt="image-20210909144804339"></p>
-<h2 id="开放对外访问的端口9001-8080-8081"><a href="#开放对外访问的端口9001-8080-8081" class="headerlink" title="开放对外访问的端口9001 8080 8081"></a>开放对外访问的端口9001 8080 8081</h2><h3 id="查看开放的端口号-1"><a href="#查看开放的端口号-1" class="headerlink" title="查看开放的端口号"></a>查看开放的端口号</h3><pre class="line-numbers language-bash"><code class="language-bash">firewall-cmd  --list-all
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="打开指定的端口号"><a href="#打开指定的端口号" class="headerlink" title="打开指定的端口号"></a>打开指定的端口号</h3><pre class="line-numbers language-bash"><code class="language-bash">firewall-cmd --zone<span class="token operator">=</span>public --add-port<span class="token operator">=</span>端口号/tcp --permanent
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195122.png" alt="image-20220118211444270"></p>
-<p><img src="https://github.com/losserlong/pictures/blob/main/20220121101059.png?raw=true" alt="20220121101059.png"></p>
-<h1 id="nginx实现负载均衡的效果"><a href="#nginx实现负载均衡的效果" class="headerlink" title="nginx实现负载均衡的效果"></a>nginx实现负载均衡的效果</h1><h2 id="实现nginx的负载均衡效果"><a href="#实现nginx的负载均衡效果" class="headerlink" title="实现nginx的负载均衡效果"></a>实现nginx的负载均衡效果</h2><blockquote>
-<p>1、实现效果<br>(1）浏览器地址栏输入地址<a target="_blank" rel="noopener" href="http://192.168.17.129/edu/a.html%EF%BC%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%95%88%E6%9E%9C%EF%BC%8C%E5%B9%B3%E5%9D%878080%E5%92%8C8081%E7%AB%AF%E5%8F%A3%E4%B8%AD">http://192.168.17.129/edu/a.html，负载均衡效果，平均8080和8081端口中</a></p>
-<p>2、准备工作<br>(1）准备两台tomcat服务器，一台8080,一台8081<br>(2）在两台tomcat里面webapps,目录中，创建名称是edu文件夹，在edu,文件夹中创建页面a.html,用于测试</p>
+   &#125;
+
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195906.png" alt="image-20210909144804339" /></p>
+<h2 id="开放对外访问的端口9001-8080-8081"><a class="markdownIt-Anchor" href="#开放对外访问的端口9001-8080-8081"></a> 开放对外访问的端口9001 8080 8081</h2>
+<h3 id="查看开放的端口号-2"><a class="markdownIt-Anchor" href="#查看开放的端口号-2"></a> 查看开放的端口号</h3>
+<pre class="highlight"><code class="bash">firewall-cmd  --list-all
+</code></pre>
+<h3 id="打开指定的端口号"><a class="markdownIt-Anchor" href="#打开指定的端口号"></a> 打开指定的端口号</h3>
+<pre class="highlight"><code class="bash">firewall-cmd --zone=public --add-port=端口号/tcp --permanent
+</code></pre>
+<h2 id="效果"><a class="markdownIt-Anchor" href="#效果"></a> 效果</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195122.png" alt="image-20220118211444270" /></p>
+<p><img src="https://github.com/losserlong/pictures/blob/main/20220121101059.png?raw=true" alt="20220121101059.png" /></p>
+<h1 id="nginx实现负载均衡的效果"><a class="markdownIt-Anchor" href="#nginx实现负载均衡的效果"></a> nginx实现负载均衡的效果</h1>
+<h2 id="实现nginx的负载均衡效果"><a class="markdownIt-Anchor" href="#实现nginx的负载均衡效果"></a> 实现nginx的负载均衡效果</h2>
+<blockquote>
+<p>1、实现效果<br />
+(1）浏览器地址栏输入地址http://192.168.17.129/edu/a.html，负载均衡效果，平均8080和8081端口中</p>
+<p>2、准备工作<br />
+(1）准备两台tomcat服务器，一台8080,一台8081<br />
+(2）在两台tomcat里面webapps,目录中，创建名称是edu文件夹，在edu,文件夹中创建页面a.html,用于测试</p>
 <p>3、/usr/local/nginx/conf下面配置nginx的配置文件</p>
 </blockquote>
 <p>这个是在nginx.conf文件的配置</p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195127.png" alt="image-20220118213235623"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195131.png" alt="image-20220118214750883"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195127.png" alt="image-20220118213235623" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195131.png" alt="image-20220118214750883" /></p>
 <p>负载均均衡效果</p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220121100741.png" alt="image-20220118220151429"></p>
-<h2 id="nginx的负载均衡策略"><a href="#nginx的负载均衡策略" class="headerlink" title="nginx的负载均衡策略"></a>nginx的负载均衡策略</h2><p><strong>1、</strong>轮询（默认） </p>
-<p>每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器 down 掉，能自动剔除。 </p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220121100741.png" alt="image-20220118220151429" /></p>
+<h2 id="nginx的负载均衡策略"><a class="markdownIt-Anchor" href="#nginx的负载均衡策略"></a> nginx的负载均衡策略</h2>
+<p>**1、**轮询（默认）</p>
+<p>每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器 down 掉，能自动剔除。</p>
 <p><strong>2、</strong>    <strong>weight</strong></p>
-<p>weight 代表权,重默认为 1,权重越高被分配的客户端越多 </p>
+<p>weight 代表权,重默认为 1,权重越高被分配的客户端越多</p>
 <blockquote>
-<p>upstream server_pool{  server 192.168.5.21 weight=10;   server 192.168.5.22 weight=10;   </p>
-<p>} </p>
+<p>upstream server_pool{  server 192.168.5.21 weight=10;   server 192.168.5.22 weight=10;</p>
+<p>}</p>
 </blockquote>
-<p>3、<strong>ip_hash</strong> </p>
+<p>3、<strong>ip_hash</strong></p>
 <p>每个请求按访问 ip 的 hash 结果分配，<strong>这样每个访客固定访问一个后端服务器</strong>，<strong>可以解决 session 的问题。 例如：</strong> （可以用来解决session共享的问题）</p>
 <blockquote>
-<p>upstream server_pool{  ip_hash;   server 192.168.5.21:80;   server 192.168.5.22:80;   } </p>
+<p>upstream server_pool{  ip_hash;   server 192.168.5.21:80;   server 192.168.5.22:80;   }</p>
 </blockquote>
-<p>4、<strong>fair</strong>（第三方） </p>
-<p><strong>按后端服务器的响应时间来分配请求</strong>，响应时间短的优先分配。 </p>
+<p>4、<strong>fair</strong>（第三方）</p>
+<p><strong>按后端服务器的响应时间来分配请求</strong>，响应时间短的优先分配。</p>
 <blockquote>
-<p> upstream  server_pool{  server 192.168.5.21:80;   server  192.168.5.22:80;   <img src="file:///C:/Users/losser/AppData/Local/Temp/msohtmlclip1/01/clip_image001.gif" alt="img">  fair;     }   </p>
+<p>upstream  server_pool{  server 192.168.5.21:80;   server  192.168.5.22:80;   ![img](file:///C:/Users/losser/AppData/Local/Temp/msohtmlclip1/01/clip_image001.gif)  fair;     }</p>
 </blockquote>
-<h1 id="Nginx配置实例-动静分离"><a href="#Nginx配置实例-动静分离" class="headerlink" title="Nginx配置实例-动静分离"></a>Nginx配置实例-动静分离</h1><h2 id="什么是动静分离"><a href="#什么是动静分离" class="headerlink" title="什么是动静分离"></a>什么是动静分离</h2><p><code>Nginx</code> <strong>动静分离简单来说就是把动态跟静态请求分开</strong>，不能理解成只是单纯的把动态页面和静态页面物理分离。<strong>严格意义上说应该是动态请求跟静态请求分开，可以理解成使用Nginx 处理静态页面，Tomcat处理动态页面</strong>。动静分离从目前实现角度来讲大致分为两种，</p>
-<p>一种是纯粹把静态文件独立成单独的域名，放在独立的服务器上，也是目前主流推崇的方案；另外一种方法就是动态跟静态文件混合在一起发布，通过 nginx 来分开。 </p>
+<h1 id="nginx配置实例-动静分离"><a class="markdownIt-Anchor" href="#nginx配置实例-动静分离"></a> Nginx配置实例-动静分离</h1>
+<h2 id="什么是动静分离"><a class="markdownIt-Anchor" href="#什么是动静分离"></a> 什么是动静分离</h2>
+<p><code>Nginx</code> <strong>动静分离简单来说就是把动态跟静态请求分开</strong>，不能理解成只是单纯的把动态页面和静态页面物理分离。<strong>严格意义上说应该是动态请求跟静态请求分开，可以理解成使用Nginx 处理静态页面，Tomcat处理动态页面</strong>。动静分离从目前实现角度来讲大致分为两种，</p>
+<p>一种是纯粹把静态文件独立成单独的域名，放在独立的服务器上，也是目前主流推崇的方案；另外一种方法就是动态跟静态文件混合在一起发布，通过 nginx 来分开。</p>
 <p>通过 location 指定不同的后缀名实现不同的请求转发。通过 expires 参数设置，可以使浏览器缓存过期时间，减少与服务器之前的请求和流量。具体 Expires 定义：是给一个资源设定一个过期时间，也就是说无需去服务端验证，直接通过浏览器自身确认是否过期即可，所以不会产生额外的流量。此种方法非常适合不经常变动的资源。（如果经常更新的文件，不建议使用 Expires 来缓存），我这里设置 3d，表示在这 3 天之内访问这个 URL，发送一个请求，比对服务器该文件最后更新时间没有变化，则不会从服务器抓取，返回状态码</p>
-<p>304，如果有修改，则直接从服务器重新下载，返回状态码 200。 </p>
-<h2 id="动静分离示意图"><a href="#动静分离示意图" class="headerlink" title="动静分离示意图"></a>动静分离示意图</h2><p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195141.png" alt="image-20220119161042681"></p>
+<p>304，如果有修改，则直接从服务器重新下载，返回状态码 200。</p>
+<h2 id="动静分离示意图"><a class="markdownIt-Anchor" href="#动静分离示意图"></a> 动静分离示意图</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195141.png" alt="image-20220119161042681" /></p>
 <p>准备工作</p>
 <p>1）在Linux系统中准备静态资源，用于进行访问</p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195147.png" alt="image-20220119162157558"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195147.png" alt="image-20220119162157558" /></p>
 <p>2）具体配置</p>
 <p>（1）在nginx配置文件中进行配置，这里面的autoindex on表示的是列出文件夹中的内容</p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195149.png" alt="image-20220119163051587"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195149.png" alt="image-20220119163051587" /></p>
 <p>4）最终测试</p>
 <p>（1）浏览器中输入地址</p>
 <p><a target="_blank" rel="noopener" href="http://192.168.60.10/image/author.jpg">http://192.168.60.10/image/author.jpg</a></p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195153.png" alt="image-20220119163417185"><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220121101150.png" alt="image-20220119163426202"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195153.png" alt="image-20220119163417185" /><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220121101150.png" alt="image-20220119163426202" /></p>
 <p>也能访问</p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195158.png" alt="image-20220119163658273"></p>
-<h1 id="nginx的高可用"><a href="#nginx的高可用" class="headerlink" title="nginx的高可用"></a>nginx的高可用</h1><h2 id="什么是高可用"><a href="#什么是高可用" class="headerlink" title="什么是高可用"></a>什么是高可用</h2><p><strong>单点故障</strong>（英语：single point of failure，缩写SPOF）是指系统中一点失效，就会让整个系统无法运作的部件，换句话说，单点故障即会整体故障。</p>
-<p><strong>高可用性</strong>（英语：high availability，缩写为 HA），IT术语，指系统无中断地执行其功能的能力，代表系统的可用性程度。是进行系统设计时的准则之一。高可用性系统与构成该系统的各个组件相比可以更长时间运行。<br><strong>高可用性通常通过提高系统的容错能力来实现。定义一个系统怎样才算具有高可用性往往需要根据每一个案例的具体情况来具体分析。</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195237.png" alt="image-20220119171907161"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195158.png" alt="image-20220119163658273" /></p>
+<h1 id="nginx的高可用"><a class="markdownIt-Anchor" href="#nginx的高可用"></a> nginx的高可用</h1>
+<h2 id="什么是高可用"><a class="markdownIt-Anchor" href="#什么是高可用"></a> 什么是高可用</h2>
+<p><strong>单点故障</strong>（英语：single point of failure，缩写SPOF）是指系统中一点失效，就会让整个系统无法运作的部件，换句话说，单点故障即会整体故障。</p>
+<p><strong>高可用性</strong>（英语：high availability，缩写为 HA），IT术语，指系统无中断地执行其功能的能力，代表系统的可用性程度。是进行系统设计时的准则之一。高可用性系统与构成该系统的各个组件相比可以更长时间运行。<br />
+<strong>高可用性通常通过提高系统的容错能力来实现。定义一个系统怎样才算具有高可用性往往需要根据每一个案例的具体情况来具体分析。</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195237.png" alt="image-20220119171907161" /></p>
 <p>（1）需要两台nginx服务器</p>
 <p>（2）需要keeplived（用来检测nginx服务器是否还活着）</p>
 <p>（3）需要虚拟IP</p>
-<h2 id="配置高可用的准备工作"><a href="#配置高可用的准备工作" class="headerlink" title="配置高可用的准备工作"></a>配置高可用的准备工作</h2><ol>
+<h2 id="配置高可用的准备工作"><a class="markdownIt-Anchor" href="#配置高可用的准备工作"></a> 配置高可用的准备工作</h2>
+<ol>
 <li>要有两个虚拟机的环境（我这里是直接用第一台进行克隆）</li>
 </ol>
-<p>​    一台是192.168.60.11</p>
-<p>​    另一台是192.168.60.10</p>
+<p>​	一台是192.168.60.11</p>
+<p>​	另一台是192.168.60.10</p>
 <ol start="2">
 <li>在两台服务器上安装nginx</li>
 <li>在两台服务器上安装keeplived，使用yum命令进行安装</li>
 </ol>
-<pre class="line-numbers language-bash"><code class="language-bash">yum <span class="token function">install</span> -y keepalived
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="highlight"><code class="bash">yum install -y keepalived
+</code></pre>
 <p>安装完成之后，keepalived的配置文件的位置/etc/keepalived</p>
-<h2 id="完成高可用的配置（主从配置）"><a href="#完成高可用的配置（主从配置）" class="headerlink" title="完成高可用的配置（主从配置）"></a>完成高可用的配置（主从配置）</h2><p>（1）修改/etc/keepalived/keepalived.conf  的配置文件</p>
-<pre><code>global_defs &#123;
-    notification_email &#123;
-        acassen@firewall.loc
-        failover@firewall.loc
-        sysadmin@firewall.loc
-    &#125;
-    notification_email_from Alexandre.Cassen@firewall.loc
-    smtp_server 192.168.60.11
-    smtp_connect_timeout 30
-    router_id LVS_DEVEL  #访问主机
+<h2 id="完成高可用的配置主从配置"><a class="markdownIt-Anchor" href="#完成高可用的配置主从配置"></a> 完成高可用的配置（主从配置）</h2>
+<p>（1）修改/etc/keepalived/keepalived.conf  的配置文件</p>
+<pre class="highlight"><code class="">global_defs &#123;
+	notification_email &#123;
+		acassen@firewall.loc
+		failover@firewall.loc
+		sysadmin@firewall.loc
+	&#125;
+	notification_email_from Alexandre.Cassen@firewall.loc
+	smtp_server 192.168.60.11
+	smtp_connect_timeout 30
+	router_id LVS_DEVEL  #访问主机
 &#125;
 
 vrrp_script chk_http_port &#123;
-    script &quot;/usr/local/src/nginx_check.sh&quot;
-    interval 2 #（检测脚本执行的间隔）
-    weight -20   # 权重，如果当前的条件成立，就将当前的主机的权重降低20
+	script &quot;/usr/local/src/nginx_check.sh&quot;
+	interval 2 #（检测脚本执行的间隔）
+	weight -20   # 权重，如果当前的条件成立，就将当前的主机的权重降低20
 &#125;
 
 vrrp_instance VI_1 &#123;
-    state BACKUP # 备份服务器上将 MASTER 改为 BACKUP
-    interface ens33 //网卡名称
-    virtual_router_id 51 # 主、备机的 virtual_router_id 必须相同
-    priority 90 # 主、备机取不同的优先级，主机值较大，备份机值较小，值越大，优先级越高 
-    advert_int 1 # 发送心跳，检测主备服务器是否还活着，这里是1秒
-    authentication &#123; # 权限校验的方式用的是密码四个1
-        auth_type PASS
-        auth_pass 1111
-    &#125;
-    virtual_ipaddress &#123;
-        192.168.60.50 // VRRP H 虚拟地址
-    &#125;
+	state BACKUP # 备份服务器上将 MASTER 改为 BACKUP
+	interface ens33 //网卡名称
+	virtual_router_id 51 # 主、备机的 virtual_router_id 必须相同
+	priority 90 # 主、备机取不同的优先级，主机值较大，备份机值较小，值越大，优先级越高 
+	advert_int 1 # 发送心跳，检测主备服务器是否还活着，这里是1秒
+	authentication &#123; # 权限校验的方式用的是密码四个1
+		auth_type PASS
+		auth_pass 1111
+	&#125;
+	virtual_ipaddress &#123;
+		192.168.60.50 // VRRP H 虚拟地址
+	&#125;
 &#125;
 </code></pre>
 <p>（2）在/usr/local/src下面添加检测nginx是否还活着的脚本nginx_check.sh</p>
-<pre class="line-numbers language-sh"><code class="language-sh">#!/bin/bash
+<pre class="highlight"><code class="sh"><span class="hljs-meta">#!/bin/bash</span>
 A=`ps -C nginx –no-header |wc -l`
-if [ $A -eq 0 ];then
-    /usr/local/nginx/sbin/nginx  #nginx启动脚本的位置
+<span class="hljs-keyword">if</span> [ <span class="hljs-variable">$A</span> -eq 0 ];<span class="hljs-keyword">then</span>
+    /usr/<span class="hljs-built_in">local</span>/nginx/sbin/nginx  <span class="hljs-comment">#nginx启动脚本的位置</span>
     sleep 2
-    if [ `ps -C nginx --no-header |wc -l` -eq 0 ];then
+    <span class="hljs-keyword">if</span> [ `ps -C nginx --no-header |wc -l` -eq 0 ];<span class="hljs-keyword">then</span>
         killall keepalived
-    fi
-fi
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="hljs-keyword">fi</span>
+<span class="hljs-keyword">fi</span>
+</code></pre>
 <p>（3）把两台服务器上的nginx和keepalived启动</p>
 <p>启动nginx：./nginx</p>
 <p>启动keepalived：systemctl  start  keepalived.service</p>
 <p>（5）最终测试</p>
 <p>（1）在浏览器地址栏中输入虚拟的IP地址192.168.60.50，说明虚拟IP绑定是正确的</p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195241.png" alt="image-20220119230324269"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195244.png" alt="image-20220119230207848"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195241.png" alt="image-20220119230324269" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195244.png" alt="image-20220119230207848" /></p>
 <p>（2）把主服务器（192.168.60.10）的nginx和keepalived停止，发现ngin已经切换到了备份服务器上，而且浏览器访问，还是有nginx（因为当主服务器挂掉之后，keepalived通过脚本检测到备份服务器还活着，就切换到备份服务器）</p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195247.png" alt="image-20220120185354530"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195249.png" alt="image-20220120185437883"></p>
-<h2 id="nginx的原理解析"><a href="#nginx的原理解析" class="headerlink" title="nginx的原理解析"></a>nginx的原理解析</h2><h3 id="master和worker"><a href="#master和worker" class="headerlink" title="master和worker"></a>master和worker</h3><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">ps</span> -ef <span class="token operator">|</span> <span class="token function">grep</span> nginx
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120214838.png" alt="image-20220120191125667"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195247.png" alt="image-20220120185354530" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195249.png" alt="image-20220120185437883" /></p>
+<h2 id="nginx的原理解析"><a class="markdownIt-Anchor" href="#nginx的原理解析"></a> nginx的原理解析</h2>
+<h3 id="master和worker"><a class="markdownIt-Anchor" href="#master和worker"></a> master和worker</h3>
+<pre class="highlight"><code class="bash">ps -ef | grep nginx
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120214838.png" alt="image-20220120191125667" /></p>
 <p>这个master相当于是一个领导，一般不做具体的工作，一般是用来分配任务。master分配任务给手下的worker，worker去做具体的事情</p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195253.png" alt="image-20220120191813067"></p>
-<h3 id="worker是如何进行工作的"><a href="#worker是如何进行工作的" class="headerlink" title="worker是如何进行工作的"></a>worker是如何进行工作的</h3><p>worker是使用争抢的机制，抢到一个任务，就调用tomcat或者反向代理完成具体操作操作。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195255.png" alt="image-20220120191803483"></p>
-<h3 id="一个master和多个worker的好处"><a href="#一个master和多个worker的好处" class="headerlink" title="一个master和多个worker的好处"></a>一个master和多个worker的好处</h3><ol>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195253.png" alt="image-20220120191813067" /></p>
+<h3 id="worker是如何进行工作的"><a class="markdownIt-Anchor" href="#worker是如何进行工作的"></a> worker是如何进行工作的</h3>
+<p>worker是使用争抢的机制，抢到一个任务，就调用tomcat或者反向代理完成具体操作操作。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195255.png" alt="image-20220120191803483" /></p>
+<h3 id="一个master和多个worker的好处"><a class="markdownIt-Anchor" href="#一个master和多个worker的好处"></a> 一个master和多个worker的好处</h3>
+<ol>
 <li>可以使用nginx -s reload 热部署的方式，利于nginx进行热部署操作</li>
 <li>每个worker是一个<strong>独立的进程</strong>，如果说有其中的一个worker出现问题，那其他的worker独立的，继续进行争抢，实现请求过程，不会造成服务的中断。</li>
 </ol>
 <blockquote>
-<p>首先，对于每个 worker 进程来说，独立的进程，不需要加锁，所以省掉了锁带来的开销，同时在编程以及问题查找时，也会方便很多。其次，采用独立的进程，可以让互相之间不会影响，一个进程退出后，其它进程还在工作，服务不会中断，master 进程则很快启动新的 worker 进程。当然，worker 进程的异常退出，肯定是程序有 bug 了，异常退出，会导致当前 worker 上的所有请求失败，不过不会影响到所有请求，所以降低了风险。需要设置多少个 <strong>worker</strong> </p>
-<p>Nginx 同 redis 类似都采用了 <strong>io 多路复用机制</strong>，每个 worker 都是一个独立的进程，但每个进程里只有一个主线程，通过异步非阻塞的方式来处理请求， 即使是千上万个请求也不在话下。每个 worker 的线程可以把一个 cpu 的性能发挥到极致。<strong>所以 worker 数和服务器的 cpu 数相等是最为适宜的。</strong>设少了会浪费 cpu，设多了会造成 cpu 频繁切换上下文带来的损耗。 </p>
+<p>首先，对于每个 worker 进程来说，独立的进程，不需要加锁，所以省掉了锁带来的开销，同时在编程以及问题查找时，也会方便很多。其次，采用独立的进程，可以让互相之间不会影响，一个进程退出后，其它进程还在工作，服务不会中断，master 进程则很快启动新的 worker 进程。当然，worker 进程的异常退出，肯定是程序有 bug 了，异常退出，会导致当前 worker 上的所有请求失败，不过不会影响到所有请求，所以降低了风险。需要设置多少个 <strong>worker</strong></p>
+<p>Nginx 同 redis 类似都采用了 <strong>io 多路复用机制</strong>，每个 worker 都是一个独立的进程，但每个进程里只有一个主线程，通过异步非阻塞的方式来处理请求， 即使是千上万个请求也不在话下。每个 worker 的线程可以把一个 cpu 的性能发挥到极致。**所以 worker 数和服务器的 cpu 数相等是最为适宜的。**设少了会浪费 cpu，设多了会造成 cpu 频繁切换上下文带来的损耗。</p>
 </blockquote>
-<h3 id="一些参数设置"><a href="#一些参数设置" class="headerlink" title="一些参数设置"></a>一些参数设置</h3><blockquote>
+<h3 id="一些参数设置"><a class="markdownIt-Anchor" href="#一些参数设置"></a> 一些参数设置</h3>
+<blockquote>
 <p>设置worker的数量和cpu的数量相等是最为适宜的</p>
 </blockquote>
 <blockquote>
@@ -504,15 +545,15 @@ fi
 </blockquote>
 <p>连接数：</p>
 <blockquote>
-<p>连接数 <strong>worker_connection</strong> </p>
+<p>连接数 <strong>worker_connection</strong></p>
 <p>这个值是表示每个 worker 进程所能建立连接的最大值，所以，一个 nginx 能建立的最大连接数，应该是 worker_connections * worker_processes。当然，这里说的是最大连接数，对于 HTTP 请求本地资源来说，能够支持的最大并发数量是 worker_connections * worker_processes，如果是支持 http1.1 的浏览器每次访问要占两个连接，所以普通的静态访问最大并发数是： worker_connections * worker_processes /2，而如果是 HTTP 作 为反向代理来说，最大并发数量应该是 worker_connections * worker_processes/4。因为作为反向代理服务器，每个并发会建立与客户端的连接和与后端服务的连接，会占用两个连接。</p>
 </blockquote>
 <p>如果是静态资源的话就是两个连接数</p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195258.png" alt="image-20220120193446745">，</p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195258.png" alt="image-20220120193446745" />，</p>
 <p>如果是要访问tomcat就是四个连接数</p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195302.png" alt="image-20220120193702496"></p>
-<p>第二个: nginx,有一个master，有四个woker，每个woker支持最大的连接数据1024，支持的最大并发数是多少？        (1024*4)/2（<strong>静态访问</strong>）        或者      （1024*4)/4  （<strong>作为反向代理</strong>）</p>
-<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195302.png" alt="image-20220120194458610"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195302.png" alt="image-20220120193702496" /></p>
+<p>第二个: nginx,有一个master，有四个woker，每个woker支持最大的连接数据1024，支持的最大并发数是多少？		(1024*4)/2（<strong>静态访问</strong>）		或者	  （1024*4)/4  （<strong>作为反向代理</strong>）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/losserlong/pictures/20220120195302.png" alt="image-20220120194458610" /></p>
 
     </div>
 
@@ -596,7 +637,7 @@ fi
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">nginx安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%8C-%E5%AE%89%E8%A3%85-pcre"><span class="nav-number">1.1.</span> <span class="nav-text">第一步， 安装 pcre</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%8E%8B%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.1.</span> <span class="nav-text">解压文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%8C-%E5%AE%89%E8%A3%85-openssl"><span class="nav-number">1.2.</span> <span class="nav-text">第二步， 安装 openssl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%8C-%E5%AE%89%E8%A3%85-zlib"><span class="nav-number">1.3.</span> <span class="nav-text">第三步， 安装 zlib</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%8C-%E5%AE%89%E8%A3%85-nginx"><span class="nav-number">1.4.</span> <span class="nav-text">第四步， 安装 nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEnginx%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">1.4.1.</span> <span class="nav-text">设置nginx的环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%BC%80%E6%94%BE%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="nav-number">1.4.2.</span> <span class="nav-text">查看开放的端口号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%94%BE%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="nav-number">1.4.3.</span> <span class="nav-text">设置开放的端口号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%90%AF%E9%98%B2%E7%81%AB%E5%A2%99"><span class="nav-number">1.4.4.</span> <span class="nav-text">重启防火墙</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx%E7%9A%84%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">nginx的常用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%88-3%EF%BC%89-%E9%87%8D%E6%96%B0%E5%8A%A0%E8%BD%BD%E5%91%BD%E4%BB%A4-%E8%BF%99%E4%B8%AA%E6%98%AF%E7%83%AD%E5%8A%A0%E8%BD%BD%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">（ 3） 重新加载命令  这个是热加载的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tomtcat%E7%9A%84%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95"><span class="nav-number">2.2.</span> <span class="nav-text">tomtcat的安装目录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%EF%BC%881%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">配置反向代理（1）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx%E9%85%8D%E7%BD%AE%E5%AE%9E%E4%BE%8B-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%EF%BC%882%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">Nginx配置实例-反向代理（2）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E4%B8%AA%E6%98%AF%E5%9C%A8nginx-conf%E9%87%8C%E9%9D%A2%E9%85%8D%E7%BD%AE"><span class="nav-number">4.1.</span> <span class="nav-text">这个是在nginx.conf里面配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E6%94%BE%E5%AF%B9%E5%A4%96%E8%AE%BF%E9%97%AE%E7%9A%84%E7%AB%AF%E5%8F%A39001-8080-8081"><span class="nav-number">4.2.</span> <span class="nav-text">开放对外访问的端口9001 8080 8081</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%BC%80%E6%94%BE%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%8F%B7-1"><span class="nav-number">4.2.1.</span> <span class="nav-text">查看开放的端口号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E6%8C%87%E5%AE%9A%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="nav-number">4.2.2.</span> <span class="nav-text">打开指定的端口号</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C"><span class="nav-number">4.3.</span> <span class="nav-text">效果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx%E5%AE%9E%E7%8E%B0%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E6%95%88%E6%9E%9C"><span class="nav-number">5.</span> <span class="nav-text">nginx实现负载均衡的效果</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0nginx%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%95%88%E6%9E%9C"><span class="nav-number">5.1.</span> <span class="nav-text">实现nginx的负载均衡效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AD%96%E7%95%A5"><span class="nav-number">5.2.</span> <span class="nav-text">nginx的负载均衡策略</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx%E9%85%8D%E7%BD%AE%E5%AE%9E%E4%BE%8B-%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="nav-number">6.</span> <span class="nav-text">Nginx配置实例-动静分离</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="nav-number">6.1.</span> <span class="nav-text">什么是动静分离</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB%E7%A4%BA%E6%84%8F%E5%9B%BE"><span class="nav-number">6.2.</span> <span class="nav-text">动静分离示意图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="nav-number">7.</span> <span class="nav-text">nginx的高可用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="nav-number">7.1.</span> <span class="nav-text">什么是高可用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">7.2.</span> <span class="nav-text">配置高可用的准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%88%90%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84%E9%85%8D%E7%BD%AE%EF%BC%88%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE%EF%BC%89"><span class="nav-number">7.3.</span> <span class="nav-text">完成高可用的配置（主从配置）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx%E7%9A%84%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90"><span class="nav-number">7.4.</span> <span class="nav-text">nginx的原理解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#master%E5%92%8Cworker"><span class="nav-number">7.4.1.</span> <span class="nav-text">master和worker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#worker%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E5%B7%A5%E4%BD%9C%E7%9A%84"><span class="nav-number">7.4.2.</span> <span class="nav-text">worker是如何进行工作的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AAmaster%E5%92%8C%E5%A4%9A%E4%B8%AAworker%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="nav-number">7.4.3.</span> <span class="nav-text">一个master和多个worker的好处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="nav-number">7.4.4.</span> <span class="nav-text">一些参数设置</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text"> nginx安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5-%E5%AE%89%E8%A3%85-pcre"><span class="nav-number">1.1.</span> <span class="nav-text"> 第一步， 安装 pcre</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%8E%8B%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.1.</span> <span class="nav-text"> 解压文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5-%E5%AE%89%E8%A3%85-openssl"><span class="nav-number">1.2.</span> <span class="nav-text"> 第二步， 安装 openssl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5-%E5%AE%89%E8%A3%85-zlib"><span class="nav-number">1.3.</span> <span class="nav-text"> 第三步， 安装 zlib</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5-%E5%AE%89%E8%A3%85-nginx"><span class="nav-number">1.4.</span> <span class="nav-text"> 第四步， 安装 nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEnginx%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">1.4.1.</span> <span class="nav-text"> 设置nginx的环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%BC%80%E6%94%BE%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="nav-number">1.4.2.</span> <span class="nav-text"> 查看开放的端口号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%94%BE%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="nav-number">1.4.3.</span> <span class="nav-text"> 设置开放的端口号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%90%AF%E9%98%B2%E7%81%AB%E5%A2%99"><span class="nav-number">1.4.4.</span> <span class="nav-text"> 重启防火墙</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx%E7%9A%84%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text"> nginx的常用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%87%8D%E6%96%B0%E5%8A%A0%E8%BD%BD%E5%91%BD%E4%BB%A4-%E8%BF%99%E4%B8%AA%E6%98%AF%E7%83%AD%E5%8A%A0%E8%BD%BD%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text"> （ 3） 重新加载命令  这个是热加载的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tomtcat%E7%9A%84%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95"><span class="nav-number">2.2.</span> <span class="nav-text"> tomtcat的安装目录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%861"><span class="nav-number">3.</span> <span class="nav-text"> 配置反向代理（1）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx%E9%85%8D%E7%BD%AE%E5%AE%9E%E4%BE%8B-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%862"><span class="nav-number">4.</span> <span class="nav-text"> Nginx配置实例-反向代理（2）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E4%B8%AA%E6%98%AF%E5%9C%A8nginxconf%E9%87%8C%E9%9D%A2%E9%85%8D%E7%BD%AE"><span class="nav-number">4.1.</span> <span class="nav-text"> 这个是在nginx.conf里面配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E6%94%BE%E5%AF%B9%E5%A4%96%E8%AE%BF%E9%97%AE%E7%9A%84%E7%AB%AF%E5%8F%A39001-8080-8081"><span class="nav-number">4.2.</span> <span class="nav-text"> 开放对外访问的端口9001 8080 8081</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%BC%80%E6%94%BE%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%8F%B7-2"><span class="nav-number">4.2.1.</span> <span class="nav-text"> 查看开放的端口号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E6%8C%87%E5%AE%9A%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="nav-number">4.2.2.</span> <span class="nav-text"> 打开指定的端口号</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C"><span class="nav-number">4.3.</span> <span class="nav-text"> 效果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx%E5%AE%9E%E7%8E%B0%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E6%95%88%E6%9E%9C"><span class="nav-number">5.</span> <span class="nav-text"> nginx实现负载均衡的效果</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0nginx%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%95%88%E6%9E%9C"><span class="nav-number">5.1.</span> <span class="nav-text"> 实现nginx的负载均衡效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AD%96%E7%95%A5"><span class="nav-number">5.2.</span> <span class="nav-text"> nginx的负载均衡策略</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx%E9%85%8D%E7%BD%AE%E5%AE%9E%E4%BE%8B-%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="nav-number">6.</span> <span class="nav-text"> Nginx配置实例-动静分离</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="nav-number">6.1.</span> <span class="nav-text"> 什么是动静分离</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB%E7%A4%BA%E6%84%8F%E5%9B%BE"><span class="nav-number">6.2.</span> <span class="nav-text"> 动静分离示意图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="nav-number">7.</span> <span class="nav-text"> nginx的高可用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="nav-number">7.1.</span> <span class="nav-text"> 什么是高可用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">7.2.</span> <span class="nav-text"> 配置高可用的准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%88%90%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE"><span class="nav-number">7.3.</span> <span class="nav-text"> 完成高可用的配置（主从配置）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx%E7%9A%84%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90"><span class="nav-number">7.4.</span> <span class="nav-text"> nginx的原理解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#master%E5%92%8Cworker"><span class="nav-number">7.4.1.</span> <span class="nav-text"> master和worker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#worker%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E5%B7%A5%E4%BD%9C%E7%9A%84"><span class="nav-number">7.4.2.</span> <span class="nav-text"> worker是如何进行工作的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AAmaster%E5%92%8C%E5%A4%9A%E4%B8%AAworker%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="nav-number">7.4.3.</span> <span class="nav-text"> 一个master和多个worker的好处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="nav-number">7.4.4.</span> <span class="nav-text"> 一些参数设置</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -612,7 +653,7 @@ fi
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -625,7 +666,7 @@ fi
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
